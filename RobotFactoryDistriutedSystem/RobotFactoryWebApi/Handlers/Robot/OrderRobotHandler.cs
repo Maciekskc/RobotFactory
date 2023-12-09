@@ -26,6 +26,9 @@ namespace RobotFactory.WebApi.Handlers.Robot
         {
             //Validate request
             var robot = await AddNewRobotToMongoDatabse();
+
+            _logger.LogInformation("Robot added to the daabase. Creating Message to construct");
+            await AddMessageToQueue(robot.Id);
             return new OrderRobotResponse(robot.Id);
         }
 
@@ -38,12 +41,11 @@ namespace RobotFactory.WebApi.Handlers.Robot
             _logger.LogInformation("Attempt to create robot in the database. Robot: {0}", JsonConvert.SerializeObject(robot));
             await _robotRepository.CreateRobotAsync(robot);
 
-            _logger.LogInformation("Robot Added");
             return robot;
         }
 
 
-        private async Task<bool> AddMessageToQueue(string Id)
+        private async Task AddMessageToQueue(string Id)
         {
             var message = new InitializeRobotCreation()
             {

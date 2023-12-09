@@ -1,5 +1,7 @@
 using MassTransit;
 using MediatR;
+using RobotFactory.DataAccessLayer.QueueServices;
+using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
 using RobotFactory.DataAccessLayer.Repositories;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.OrderRobots;
@@ -10,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();
+builder.Services.AddScoped<IInitializeRobotCreationQueueService, InitializeRobotCreationQueueService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

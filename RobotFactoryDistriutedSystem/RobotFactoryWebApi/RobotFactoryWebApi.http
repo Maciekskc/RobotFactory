@@ -4,3 +4,6 @@ GET {{RobotFactoryWebApi_HostAddress}}/health-check/
 Accept: application/json
 
 ###
+
+POST {{RobotFactoryWebApi_HostAddress}}/order-robot/
+Accept: application/json

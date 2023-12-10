@@ -1,6 +1,4 @@
-﻿using Azure.Identity;
-using Azure.Storage.Queues;
-using MediatR;
+﻿using MediatR;
 using Newtonsoft.Json;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;

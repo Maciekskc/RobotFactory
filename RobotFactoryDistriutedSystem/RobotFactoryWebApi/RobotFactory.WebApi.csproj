@@ -5,14 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <UserSecretsId>b270d4c5-aa89-4bfa-b36f-247385323ec8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Storage.Queues" Version="12.17.1" />
-    <PackageReference Include="MassTransit" Version="8.1.2" />
-    <PackageReference Include="MassTransit.Azure.Storage" Version="8.1.2" />
     <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>

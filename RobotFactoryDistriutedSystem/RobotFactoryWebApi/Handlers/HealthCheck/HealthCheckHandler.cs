@@ -2,7 +2,7 @@
 using RobotFactorySharedComponents;
 using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;
 
-namespace RobotFactory.WebApi.Handlers.HealthChecks
+namespace RobotFactory.WebApi.Handlers.HealthCheck
 {
     public class HealthCheckHandler : IRequestHandler<HealthCheckRequest, HealthCheckResponse>
     {

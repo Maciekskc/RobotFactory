@@ -1,11 +1,9 @@
-using MassTransit;
 using MediatR;
 using RobotFactory.DataAccessLayer.QueueServices;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
 using RobotFactory.DataAccessLayer.Repositories;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.OrderRobots;
-using RobotFactory.WebApi.Handlers.Robot;
 using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,5 +1,4 @@
-﻿using Amazon.Util.Internal.PlatformServices;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.DataLayer.Models;

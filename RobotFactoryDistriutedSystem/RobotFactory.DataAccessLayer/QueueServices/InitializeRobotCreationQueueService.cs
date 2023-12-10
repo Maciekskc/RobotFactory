@@ -16,9 +16,9 @@ namespace RobotFactory.DataAccessLayer.QueueServices
         public InitializeRobotCreationQueueService(IConfiguration configuration, ILogger<InitializeRobotCreationQueueService> loggger)
         {
             _loggger = loggger;
-            string queueName = configuration["AzureStorageQueue:InitializeRobotCreationQueueName"];
-            string queueUri = configuration["AzureStorageQueue:QueueUri"];
-            string sasSignature = configuration["AzureStorageQueue:SASTokenConnection"];
+            string queueName = configuration["AzureStorageQueue:InitializeRobotCreationQueueName"] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
+            string queueUri = configuration["AzureStorageQueue:QueueBaseUri"] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
+            string sasSignature = configuration["AzureStorageQueue:SASTokenConnection"] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
 
             // Instantiate a QueueClient to create and interact with the queue
             _queueClient = new QueueClient(

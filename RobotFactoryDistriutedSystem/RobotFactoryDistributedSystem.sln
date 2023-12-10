@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.WebApi", "RobotFactoryWebApi\RobotFactory.WebApi.csproj", "{6834C1A8-4BD9-4951-AFDD-7DD76DFAECEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.SharedComponents", "RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj", "{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.SharedComponents", "RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj", "{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentDockerComponents", "DevelopmentDockerComponents", "{D1E81BFE-E680-4019-AE3D-5A9D9A53928A}"
 EndProject
@@ -14,9 +14,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongoContainer", "MongoCont
 		mongo-development-docker-compose.yml = mongo-development-docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.DataLayer", "RobotFactory.DataLayer\RobotFactory.DataLayer.csproj", "{1A263A59-7560-4158-9656-42605A31BC31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataLayer", "RobotFactory.DataLayer\RobotFactory.DataLayer.csproj", "{1A263A59-7560-4158-9656-42605A31BC31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.DataAccessLayer", "RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj", "{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataAccessLayer", "RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj", "{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.ComponentSuplierFunctions", "RobotFactory.ComponentSuplierFunctions\RobotFactory.ComponentSuplierFunctions.csproj", "{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentAzureStorage", "DevelopmentAzureStorage", "{79657891-52DD-4027-8BB5-7D589FD7DF51}"
+	ProjectSection(SolutionItems) = preProject
+		generateSasTokenFromAzureStorageEmulator.ps1 = generateSasTokenFromAzureStorageEmulator.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +47,10 @@ Global
 		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

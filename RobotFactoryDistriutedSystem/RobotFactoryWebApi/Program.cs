@@ -5,6 +5,7 @@ using RobotFactory.DataAccessLayer.Repositories;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.OrderRobots;
 using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
-
 
 var app = builder.Build();
 

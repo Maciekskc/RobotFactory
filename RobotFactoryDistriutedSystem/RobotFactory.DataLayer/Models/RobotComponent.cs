@@ -11,7 +11,6 @@ namespace RobotFactory.DataLayer.Models
         public string? Id { get; set; }
         protected RobotComponentType ComponentType { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime MountedAt { get; set; }
-
+        public DateTime? MountedAt { get; set; }
     }
 }

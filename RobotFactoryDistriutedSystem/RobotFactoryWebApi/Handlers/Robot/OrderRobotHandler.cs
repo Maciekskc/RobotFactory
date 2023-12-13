@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
+using RobotFactory.DataLayer.Enums;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.OrderRobots;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
@@ -48,7 +49,19 @@ namespace RobotFactory.WebApi.Handlers.Robot
             var message = new InitializeRobotCreation()
             {
                 RobotId = Id,
-                Issuer = "HardcodedInWebApiApplication"
+                Issuer = "HardcodedInWebApiApplication",
+                OrderElements = new RobotComponentsOrder()
+                {
+                    Items = new RobotComponentOrderItem[]
+                    {
+                        new RobotComponentOrderItem(RobotComponentType.Body,new []{"2","2"}),
+                        new RobotComponentOrderItem(RobotComponentType.Head,new []{"8"}),
+                        new RobotComponentOrderItem(RobotComponentType.Arm,new []{"Left"}),
+                        new RobotComponentOrderItem(RobotComponentType.Arm,new []{"Right"}),
+                        new RobotComponentOrderItem(RobotComponentType.Leg,new []{"Left"}),
+                        new RobotComponentOrderItem(RobotComponentType.Leg,new []{"Right"})
+                    }
+                }
             };
 
             await _initializeRobotCreationQueueService.AddMessageToQueue(message);

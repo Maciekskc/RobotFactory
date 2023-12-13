@@ -8,10 +8,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.SharedComponents", "RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj", "{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentDockerComponents", "DevelopmentDockerComponents", "{D1E81BFE-E680-4019-AE3D-5A9D9A53928A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongoContainer", "MongoContainer", "{1A05626B-57A5-4901-90ED-2A2F68344D8E}"
 	ProjectSection(SolutionItems) = preProject
-		mongo-development-docker-compose.yml = mongo-development-docker-compose.yml
+		local-development-docker-compose.yml = local-development-docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataLayer", "RobotFactory.DataLayer\RobotFactory.DataLayer.csproj", "{1A263A59-7560-4158-9656-42605A31BC31}"
@@ -54,9 +52,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{1A05626B-57A5-4901-90ED-2A2F68344D8E} = {D1E81BFE-E680-4019-AE3D-5A9D9A53928A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03170B42-E0B9-4364-80AC-6AA006D4D19D}

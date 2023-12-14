@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using Azure.Storage.Queues.Models;
 using Microsoft.AspNetCore.Http;
@@ -19,13 +20,15 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.VisualBasic;
 using RobotFactory.DataLayer.Enums;
 using RobotFactory.DataLayer.Models;
+using Azure.Core;
 
 namespace RobotFactory.ComponentSuplierFunctions
 {
     public static class Functions
     {
+
         [FunctionName(nameof(RobotConstructionInitializationConsumer))]
-        public static Task RobotConstructionInitializationConsumer(
+        public static async Task RobotConstructionInitializationConsumer(
             [QueueTrigger(@"%StorageQueueName%", Connection = @"StorageQueueConnection")] QueueMessage queueItem,
             [DurableClient] IDurableOrchestrationClient client,
             ILogger log)
@@ -34,7 +37,7 @@ namespace RobotFactory.ComponentSuplierFunctions
             log.LogInformation("Initialize robot creation, processing message {0}", queueItem.MessageId);
             log.LogTrace("Orchestratiing function for message Id: {0}, message content: {1}", queueItem.MessageId, queueItem.MessageText);
 
-            return client.StartNewAsync(nameof(RobotComponentSuplierOrchestrator), inputObject);
+            await client.StartNewAsync(nameof(RobotComponentSuplierOrchestrator), inputObject);
         }
 
         [FunctionName(nameof(RobotComponentSuplierOrchestrator))]
@@ -45,19 +48,17 @@ namespace RobotFactory.ComponentSuplierFunctions
             var inputObject = context.GetInput<InitializeRobotCreation>();
 
             log.LogTrace("Orchestrator receive message: {0}", context.InstanceId);
-            await Task.Delay(2000);
 
             var construnctionTasks = new List<Task<RobotComponent>>();
-            // Generate components with different inputs
             foreach (var component in inputObject.OrderElements.Items)
             {
                 construnctionTasks.Add(context.CallActivityAsync<RobotComponent>(nameof(GenerateRobotComponent), component));
             }
 
             var outputs = await Task.WhenAll(construnctionTasks);
-            string d = "";
+            log.LogCritical(JsonConvert.SerializeObject(outputs));
             //// Send the array of outputs to the storage
-            //await context.CallActivityAsync("SuplierDeliveryRequest", outputs);
+            await context.CallActivityAsync(nameof(DurableFunctionsEntityHttpCSharp.SendComponentsToTheDatabaseStore), outputs);
 
             //// Execute the SubmitMessageToConstructionQueue function
             //await context.CallActivityAsync("SubmitMessageToConstructionQueue", string);
@@ -65,41 +66,38 @@ namespace RobotFactory.ComponentSuplierFunctions
 
         [FunctionName(nameof(GenerateRobotComponent))]
         public static async Task<RobotComponent> GenerateRobotComponent(
-            [OrchestrationTrigger] IDurableOrchestrationContext ctx,
+            [ActivityTrigger] RobotComponentOrderItem requestedComponent,
             ILogger log)
         {
-            var requestedComponent = ctx.GetInput<RobotComponentOrderItem>();
-
-            RobotComponent robotComponent = null;
             switch (requestedComponent.componentType)
             {
                 case RobotComponentType.Head:
                     await Task.Delay(3000);
-                    return ConstructRobotHead(requestedComponent.parameters);
+                    return await ConstructRobotHead(requestedComponent.parameters);
                     break;
 
                 case RobotComponentType.Body:
                     await Task.Delay(4000);
-                    return ConstructRobotBody(requestedComponent.parameters);
+                    return await ConstructRobotBody(requestedComponent.parameters);
                     break;
 
                 case RobotComponentType.Arm:
                     await Task.Delay(1000);
-                    return ConstructRobotArm(requestedComponent.parameters);
+                    return await ConstructRobotArm(requestedComponent.parameters);
                     break;
 
                 case RobotComponentType.Leg:
                     await Task.Delay(800);
-                    return ConstructRobotLeg(requestedComponent.parameters);
+                    return await ConstructRobotLeg(requestedComponent.parameters);
                     break;
                 default:
                     throw new InvalidDataException("Unsuported type of component");
             }
         }
 
-        private static RobotComponent ConstructRobotLeg(string[] requestedComponentParameters)
+        private static async Task<RobotComponent> ConstructRobotLeg(string[] requestedComponentParameters)
         {
-            ValidateRobotLegRequest(requestedComponentParameters);
+            await ValidateRobotLegRequest(requestedComponentParameters);
             return new Leg()
             {
                 CreatedAt = DateTime.Now,
@@ -114,17 +112,18 @@ namespace RobotFactory.ComponentSuplierFunctions
             };
         }
 
-        private static void ValidateRobotLegRequest(string[] requestedComponentParameters)
+        private static async Task ValidateRobotLegRequest(string[] requestedComponentParameters)
         {
+            
             if (requestedComponentParameters.Length != 1)
                 throw new ArgumentException("Robot leg construction request does not contain required parameters");
             var site = requestedComponentParameters[0];
 
-            if (site != "Left" || site != "Right" || site != "Other")
+            if (site != "Left" && site != "Right" && site != "Other")
                 throw new ArgumentException("Robot leg construction request contain unknown parameters");
         }
 
-        private static RobotComponent ConstructRobotArm(string[] requestedComponentParameters)
+        private static async Task<RobotComponent> ConstructRobotArm(string[] requestedComponentParameters)
         {
             ValidateRobotArmRequest(requestedComponentParameters);
             return new Arm()
@@ -147,11 +146,11 @@ namespace RobotFactory.ComponentSuplierFunctions
                 throw new ArgumentException("Robot arm construction request does not contain required parameters");
             var site = requestedComponentParameters[0];
 
-            if (site != "Left" || site != "Right" || site != "Unified")
+            if (site != "Left" && site != "Right" && site != "Unified")
                 throw new ArgumentException("Robot arm construction request contain unknown parameters");
         }
 
-        private static RobotComponent ConstructRobotBody(string[] requestedComponentParameters)
+        private static async Task<RobotComponent> ConstructRobotBody(string[] requestedComponentParameters)
         {
             ValidateRobotBodyRequest(requestedComponentParameters);
             return new Body()
@@ -173,7 +172,7 @@ namespace RobotFactory.ComponentSuplierFunctions
                 throw new ArgumentException("Robot body construction request parameters");
         }
 
-        private static RobotComponent ConstructRobotHead(string[] requestedComponentParameters)
+        private static async Task<RobotComponent> ConstructRobotHead(string[] requestedComponentParameters)
         {
             ValidateRobotHeadRequest(requestedComponentParameters);
             return new Head()

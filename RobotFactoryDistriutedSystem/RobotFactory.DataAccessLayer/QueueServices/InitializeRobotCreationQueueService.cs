@@ -22,7 +22,7 @@ namespace RobotFactory.DataAccessLayer.QueueServices
 
             // Instantiate a QueueClient to create and interact with the queue
             _queueClient = new QueueClient(
-                new Uri(queueUri+queueName),
+                new Uri(queueUri +queueName),
                 new AzureSasCredential(sasSignature));
         }
 

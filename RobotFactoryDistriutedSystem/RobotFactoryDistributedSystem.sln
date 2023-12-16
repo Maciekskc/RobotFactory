@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataLayer", "R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataAccessLayer", "RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj", "{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.ComponentSuplierFunctions", "RobotFactory.ComponentSuplierFunctions\RobotFactory.ComponentSuplierFunctions.csproj", "{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.ComponentSupplier", "RobotFactory.ComponentSuplierFunctions\RobotFactory.ComponentSupplier.csproj", "{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentAzureStorage", "DevelopmentAzureStorage", "{79657891-52DD-4027-8BB5-7D589FD7DF51}"
 	ProjectSection(SolutionItems) = preProject

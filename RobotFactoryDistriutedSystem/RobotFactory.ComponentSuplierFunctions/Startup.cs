@@ -1,7 +1,7 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RobotFactory.ComponentSuplierFunctions
+namespace RobotFactory.ComponentSupplier
 {
     public class Startup : FunctionsStartup
     {

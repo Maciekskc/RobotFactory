@@ -8,15 +8,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RobotFactory.DataLayer.Models;
 
-namespace RobotFactory.ComponentSuplierFunctions
+namespace RobotFactory.ComponentSupplier
 {
-    public class DurableFunctionsEntityHttpCSharp
+    public class ComponentSupplierFunctions
     {
         private readonly HttpClient _factoryApiHttpClient;
 
-        public DurableFunctionsEntityHttpCSharp(HttpClient factoryApiHttpClient, IConfiguration configuration)
+        public ComponentSupplierFunctions(IHttpClientFactory factoryApiHttpClient, IConfiguration configuration)
         {
-            _factoryApiHttpClient = factoryApiHttpClient;
+            _factoryApiHttpClient = factoryApiHttpClient.CreateClient();
             _factoryApiHttpClient.BaseAddress = new Uri(configuration["RobotFactoryApiUri"]);
         }
 
@@ -26,7 +26,7 @@ namespace RobotFactory.ComponentSuplierFunctions
             ILogger log)
         {
             var response = await _factoryApiHttpClient.GetAsync("health-check");
-            log.LogCritical("Got response from API: {0}", await response.Content.ReadAsStringAsync());
+            log.LogInformation("Got response from API: {0}", await response.Content.ReadAsStringAsync());
 
             return new OkObjectResult(response);
         }

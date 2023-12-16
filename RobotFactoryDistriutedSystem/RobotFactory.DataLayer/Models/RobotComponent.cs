@@ -10,8 +10,7 @@ namespace RobotFactory.DataLayer.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
-
-        [JsonPropertyName("Value")]
+        public string? RobotId { get; set; }
         protected RobotComponentType ComponentType { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? MountedAt { get; set; }

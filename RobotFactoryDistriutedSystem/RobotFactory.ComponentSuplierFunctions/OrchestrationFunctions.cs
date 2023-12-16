@@ -43,7 +43,8 @@ namespace RobotFactory.ComponentSupplier
             }
 
             var outputs = await Task.WhenAll(constructionTasks);
-            log.LogCritical(JsonConvert.SerializeObject(outputs));
+            Array.ForEach(outputs, c => c.RobotId = inputObject.RobotId);
+
             //// Send the array of outputs to the storage
             await context.CallActivityAsync(nameof(ComponentSupplierFunctions.SendComponentsToTheDatabaseStore), outputs);
 

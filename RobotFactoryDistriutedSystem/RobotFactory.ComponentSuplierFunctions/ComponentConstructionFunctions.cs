@@ -56,7 +56,7 @@ namespace RobotFactory.ComponentSupplier
                 CreatedAt = DateTime.Now,
                 Id = null,
                 MountedAt = null,
-                ArmSite = requestedComponentParameters[0] switch
+                LegSite = requestedComponentParameters[0] switch
                 {
                     "Right" => LegSiteType.Right,
                     "Left" => LegSiteType.Left,

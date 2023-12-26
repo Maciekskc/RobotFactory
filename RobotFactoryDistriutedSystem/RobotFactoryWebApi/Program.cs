@@ -42,6 +42,6 @@ var mediator = app.Services.CreateScope().ServiceProvider.GetService<IMediator>(
 
 app.MapGet("/health-check", () => mediator.Send(new HealthCheckRequest()));
 app.MapPost("/order-robot", () => mediator.Send(new OrderRobotRequest()));
-app.MapPost("/supply-components", () => mediator.Send(new SupplyComponentsRequest()));
+app.MapPost("/supply-components",  (SupplyComponentsRequest request) => mediator.Send(request));
 
 app.Run();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Azure.Storage.Queues.Models;
 using Microsoft.Azure.WebJobs;
@@ -46,7 +47,7 @@ namespace RobotFactory.ComponentSupplier
             Array.ForEach(outputs, c => c.RobotId = inputObject.RobotId);
 
             //// Send the array of outputs to the storage
-            await context.CallActivityAsync(nameof(ComponentSupplierFunctions.SendComponentsToTheDatabaseStore), outputs);
+            var componentSupplyResponse = await context.CallActivityAsync<HttpStatusCode>(nameof(ComponentSupplierFunctions.SendComponentsToTheDatabaseStore), outputs);
 
             // Execute the SubmitMessageToConstructionQueue function
             await context.CallActivityAsync(nameof(OrderFinalizationFunctions.SendMessageToStartConstructionQueue), inputObject.RobotId);

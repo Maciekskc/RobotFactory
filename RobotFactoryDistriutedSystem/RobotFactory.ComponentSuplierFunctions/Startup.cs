@@ -10,7 +10,7 @@ namespace RobotFactory.ComponentSupplier
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddHttpClient(); builder.Services.AddSingleton<IMessageSerializerSettingsFactory, CustomMessageSerializerSettingsFactory>();
+            builder.Services.AddHttpClient();
             builder.Services.AddSingleton<IMessageSerializerSettingsFactory, CustomMessageSerializerSettingsFactory>();
         }
 
@@ -18,7 +18,7 @@ namespace RobotFactory.ComponentSupplier
         {
             public JsonSerializerSettings CreateJsonSerializerSettings()
             {
-                return  new JsonSerializerSettings
+                return new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.All
                 };

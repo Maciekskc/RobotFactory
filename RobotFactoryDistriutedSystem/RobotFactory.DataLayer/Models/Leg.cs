@@ -4,6 +4,11 @@ namespace RobotFactory.DataLayer.Models
 {
     public class Leg : RobotComponent
     {
-        public LegSiteType ArmSite { get; set; }
+        public LegSiteType LegSite { get; set; }
+
+        public Leg()
+        {
+            ComponentType = RobotComponentType.Leg;
+        }
     }
 }

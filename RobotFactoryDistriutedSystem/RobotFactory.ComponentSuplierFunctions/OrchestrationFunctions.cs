@@ -48,9 +48,6 @@ namespace RobotFactory.ComponentSupplier
 
             //// Send the array of outputs to the storage
             var componentSupplyResponse = await context.CallActivityAsync<HttpStatusCode>(nameof(ComponentSupplierFunctions.SendComponentsToTheDatabaseStore), outputs);
-
-            // Execute the SubmitMessageToConstructionQueue function
-            await context.CallActivityAsync(nameof(OrderFinalizationFunctions.SendMessageToStartConstructionQueue), inputObject.RobotId);
         }
     }
 }

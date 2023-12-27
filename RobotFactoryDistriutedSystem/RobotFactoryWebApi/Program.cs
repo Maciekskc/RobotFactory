@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();
 builder.Services.AddScoped<IRobotComponentsRepository, RobotComponentsRepository>();
 builder.Services.AddScoped<IInitializeRobotCreationQueueService, InitializeRobotCreationQueueService>();
+builder.Services.AddScoped<IStartRobotConstructionService, StartRobotConstructionService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -20,10 +20,10 @@ namespace RobotFactory.DataAccessLayer.QueueServices
 
         public async Task AddMessageToQueue(InitializeRobotCreation message)
         {
-            if (_queueClient == null)
+            if (QueueClient == null)
                 throw new ArgumentNullException("QueueClient cannot be initialized");
             _loggger.LogInformation("Attempt to add initialize robot creation message to queue");
-            var queueResponse = await _queueClient.SendMessageAsync(JsonConvert.SerializeObject(message));
+            var queueResponse = await QueueClient.SendMessageAsync(JsonConvert.SerializeObject(message));
 
             _loggger.LogInformation("Message Added. New Mesage Id: {0}", queueResponse.Value.MessageId);
 

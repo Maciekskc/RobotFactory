@@ -6,18 +6,20 @@ namespace RobotFactory.DataAccessLayer.QueueServices
 {
     public abstract class BaseQueueService
     {
-        protected readonly QueueClient _queueClient = null;
+        protected readonly QueueClient? QueueClient = null;
 
-        public BaseQueueService(IConfiguration configuration, string QueueName, string QueueUri, string SasSignature)
+        public BaseQueueService(IConfiguration configuration, string queueNameSettingName, string queueUriSettingName, string queueSasSignatureSettingName)
         {
-            string queueName = configuration[QueueName] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
-            string queueUri = configuration[QueueUri] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
-            string sasSignature = configuration[SasSignature] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
+            string queueName = configuration[queueNameSettingName] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
+            string queueUri = configuration[queueUriSettingName] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
+            string sasSignature = configuration[queueSasSignatureSettingName] ?? throw new ArgumentNullException("Configuration  cannot be loaded.");
 
             // Instantiate a QueueClient to create and interact with the queue
-            _queueClient = new QueueClient(
+            QueueClient = new QueueClient(
                 new Uri(queueUri + queueName),
                 new AzureSasCredential(sasSignature));
         }
+
+        protected bool IsQueueInitialized() => QueueClient != null;
     }
 }

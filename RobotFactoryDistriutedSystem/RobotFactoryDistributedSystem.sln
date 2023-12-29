@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentAzureStorage", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobotFactory.RobotConstructionWorkers", "RobotFactory.RobotConstructionWorkers", "{70F0712B-37A9-468B-AF7D-1F31DF4D54A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.ConstructionOrganizer", "RobotFactory.Workers.ConstructionOrganizer\RobotFactory.Workers.ConstructionOrganizer.csproj", "{D8B3DC71-6191-4572-9448-F818F7303C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.1.ConstructionStarter", "RobotFactory.Workers.ConstructionOrganizer\RobotFactory.Workers.1.ConstructionStarter.csproj", "{D8B3DC71-6191-4572-9448-F818F7303C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.SharedComponents", "RobotFactory.Workers.SharedComponents\RobotFactory.Workers.SharedComponents.csproj", "{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.SharedComponents", "RobotFactory.Workers.SharedComponents\RobotFactory.Workers.SharedComponents.csproj", "{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

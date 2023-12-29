@@ -19,9 +19,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.ComponentSupplier", "RobotFactory.ComponentSuplierFunctions\RobotFactory.ComponentSupplier.csproj", "{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentAzureStorage", "DevelopmentAzureStorage", "{79657891-52DD-4027-8BB5-7D589FD7DF51}"
-	ProjectSection(SolutionItems) = preProject
-		generateSasTokenFromAzureStorageEmulator.ps1 = generateSasTokenFromAzureStorageEmulator.ps1
-	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobotFactory.RobotConstructionWorkers", "RobotFactory.RobotConstructionWorkers", "{70F0712B-37A9-468B-AF7D-1F31DF4D54A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.ConstructionOrganizer", "RobotFactory.Workers.ConstructionOrganizer\RobotFactory.Workers.ConstructionOrganizer.csproj", "{D8B3DC71-6191-4572-9448-F818F7303C1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.SharedComponents", "RobotFactory.Workers.SharedComponents\RobotFactory.Workers.SharedComponents.csproj", "{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,9 +52,21 @@ Global
 		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8B3DC71-6191-4572-9448-F818F7303C1F} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03170B42-E0B9-4364-80AC-6AA006D4D19D}

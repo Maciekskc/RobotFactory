@@ -1,4 +1,4 @@
-﻿using RobotFactory.Workers.SharedComponents.QueueClientServices;
+﻿using RobotFactory.DataAccessLayer.QueueServices.BaseModels;
 
 namespace RobotFactory.Workers.ConstructionOrganizer.QueueServices
 {

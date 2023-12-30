@@ -3,10 +3,9 @@ using System.Text.Json;
 using Azure.Storage.Queues.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using RobotFactory.DataAccessLayer.QueueServices;
-using RobotFactory.Workers.SharedComponents.QueueClientServiceInterfaces;
+using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 
-namespace RobotFactory.Workers.SharedComponents.QueueClientServices
+namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
 {
     public class BaseWorkerQueueConsumer<T> : BaseQueueService, IBaseWorkerQueueConsumer<T> where T : class
     {
@@ -43,7 +42,7 @@ namespace RobotFactory.Workers.SharedComponents.QueueClientServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Cannot deserialize message with Id: {0}",message.MessageId);
+                    _logger.LogError("Cannot deserialize message with Id: {0}", message.MessageId);
 
                     //Here it should handle poisoned messages
                 }

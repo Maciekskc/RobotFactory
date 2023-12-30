@@ -1,8 +1,7 @@
 using System.Text.Json;
+using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 using RobotFactory.Workers.SharedComponents;
-using RobotFactory.Workers.SharedComponents.QueueClientInterfaces;
-using RobotFactory.Workers.SharedComponents.QueueClientServiceInterfaces;
 
 namespace RobotFactory.Workers.ConstructionOrganizer
 {

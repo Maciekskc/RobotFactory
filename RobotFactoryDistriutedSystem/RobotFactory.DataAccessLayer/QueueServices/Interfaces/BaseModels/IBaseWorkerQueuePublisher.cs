@@ -1,6 +1,4 @@
-﻿using Azure.Storage.Queues;
-
-namespace RobotFactory.Workers.SharedComponents.QueueClientInterfaces
+﻿namespace RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels
 {
     public interface IBaseWorkerQueuePublisher
     {

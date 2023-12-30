@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using RobotFactory.Workers.SharedComponents.QueueClientInterfaces;
-using RobotFactory.Workers.SharedComponents.QueueClientServiceInterfaces;
+using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 
 namespace RobotFactory.Workers.SharedComponents
 {

@@ -1,8 +1,7 @@
+using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 using RobotFactory.Workers.ConstructionOrganizer;
 using RobotFactory.Workers.ConstructionOrganizer.QueueServices;
-using RobotFactory.Workers.SharedComponents.QueueClientInterfaces;
-using RobotFactory.Workers.SharedComponents.QueueClientServiceInterfaces;
 
 
 var builder = Host.CreateApplicationBuilder(args);

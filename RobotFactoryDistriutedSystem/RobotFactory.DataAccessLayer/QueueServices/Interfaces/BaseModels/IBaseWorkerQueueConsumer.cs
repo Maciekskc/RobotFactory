@@ -1,4 +1,4 @@
-﻿namespace RobotFactory.Workers.SharedComponents.QueueClientServiceInterfaces
+﻿namespace RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels
 {
     public interface IBaseWorkerQueueConsumer<T> where T : class
     {

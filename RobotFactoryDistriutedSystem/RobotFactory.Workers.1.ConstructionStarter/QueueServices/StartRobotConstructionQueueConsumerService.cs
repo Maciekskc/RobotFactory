@@ -1,5 +1,5 @@
-﻿using RobotFactory.SharedComponents.Dtos.QueueObjects;
-using RobotFactory.Workers.SharedComponents.QueueClientServices;
+﻿using RobotFactory.DataAccessLayer.QueueServices.BaseModels;
+using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
 namespace RobotFactory.Workers.ConstructionOrganizer.QueueServices
 {

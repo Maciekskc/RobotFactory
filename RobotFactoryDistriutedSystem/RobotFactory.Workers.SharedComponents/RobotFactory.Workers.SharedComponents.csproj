@@ -16,4 +16,9 @@
     <ProjectReference Include="..\RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="QueueClientServiceInterfaces\" />
+    <Folder Include="QueueClientServices\" />
+  </ItemGroup>
+
 </Project>

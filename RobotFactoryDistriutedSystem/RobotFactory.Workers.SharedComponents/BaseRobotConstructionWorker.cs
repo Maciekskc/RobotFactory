@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
+using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 
 namespace RobotFactory.Workers.SharedComponents
 {
@@ -17,12 +18,16 @@ namespace RobotFactory.Workers.SharedComponents
 
         protected IBaseWorkerQueueConsumer<T> QueueConsumer { get; set; }
         protected IBaseWorkerQueuePublisher QueuePublisher { get; set; }
+        protected IRobotComponentsRepository RobotComponentsRepository { get; set; }
+        protected IRobotRepository RobotRepository { get; set; }
 
-        public BaseRobotConstructionWorker(ILogger<BaseRobotConstructionWorker<T>> logger, IBaseWorkerQueueConsumer<T> queueConsumer, IBaseWorkerQueuePublisher queuePublisher, IConfiguration configuration)
+        public BaseRobotConstructionWorker(ILogger<BaseRobotConstructionWorker<T>> logger, IBaseWorkerQueueConsumer<T> queueConsumer, IBaseWorkerQueuePublisher queuePublisher, IConfiguration configuration, IRobotComponentsRepository robotComponentsRepository, IRobotRepository robotRepository)
         {
             _logger = logger;
             QueueConsumer = queueConsumer;
             QueuePublisher = queuePublisher;
+            RobotComponentsRepository = robotComponentsRepository;
+            RobotRepository = robotRepository;
             if (!Int32.TryParse(configuration[ParallelMessageProcessingCountConfigurationName], out _parallelMessageProcessingCount))
                 _parallelMessageProcessingCount = 1;
             if (!Int32.TryParse(configuration[QueueReadDelaySettingName], out _queueReadDelay))

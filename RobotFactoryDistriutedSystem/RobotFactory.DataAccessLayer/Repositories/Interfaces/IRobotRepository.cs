@@ -1,4 +1,5 @@
-﻿using RobotFactory.DataLayer.Models;
+﻿using MongoDB.Driver;
+using RobotFactory.DataLayer.Models;
 
 namespace RobotFactory.DataAccessLayer.Repositories.Interfaces
 {
@@ -9,5 +10,9 @@ namespace RobotFactory.DataAccessLayer.Repositories.Interfaces
         Task<List<Robot>> GetAllRobotsAsync();
 
         Task CreateRobotAsync(Robot newRobot);
+
+        Task<UpdateResult> AddRobotComponentAsync(string robotId, Type robotComponentType,
+            RobotComponent newRobotComponent);
+        Task<UpdateResult> UpdateRobotProperty(string robotId, UpdateDefinition<Robot> updateDefinition);
     }
 }

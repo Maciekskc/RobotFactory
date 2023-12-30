@@ -13,6 +13,7 @@ namespace RobotFactory.DataAccessLayer.Repositories.Interfaces
 
         Task<UpdateResult> AddRobotComponentAsync(string robotId, Type robotComponentType,
             RobotComponent newRobotComponent);
+
         Task<UpdateResult> UpdateRobotProperty(string robotId, UpdateDefinition<Robot> updateDefinition);
     }
 }

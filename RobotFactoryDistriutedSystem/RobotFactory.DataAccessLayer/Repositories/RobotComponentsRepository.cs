@@ -23,14 +23,19 @@ namespace RobotFactory.DataAccessLayer.Repositories
             return _robotComponentsCollection.InsertOneAsync(newRobotComponent);
         }
 
-        public Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string RobotId)
+        public Task DeleteRobotComponentAsync(string robotId)
         {
-            return _robotComponentsCollection.Find(rc => rc.RobotId == RobotId).ToListAsync();
+            return _robotComponentsCollection.DeleteOneAsync(rc => rc.Id == robotId);
         }
 
-        public Task<RobotComponent> GetRobotComponentByIdAsync(string RobotComponentId)
+        public Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string robotId)
         {
-            return _robotComponentsCollection.Find(rc => rc.Id == RobotComponentId).FirstOrDefaultAsync();
+            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId).ToListAsync();
+        }
+
+        public Task<RobotComponent> GetRobotComponentByIdAsync(string robotComponentId)
+        {
+            return _robotComponentsCollection.Find(rc => rc.Id == robotComponentId).FirstOrDefaultAsync();
         }
     }
 }

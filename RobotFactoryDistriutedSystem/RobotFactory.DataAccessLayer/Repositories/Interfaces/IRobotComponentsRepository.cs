@@ -4,10 +4,12 @@ namespace RobotFactory.DataAccessLayer.Repositories.Interfaces
 {
     public interface IRobotComponentsRepository
     {
-        Task<RobotComponent> GetRobotComponentByIdAsync(string RobotComponentId);
+        Task<RobotComponent> GetRobotComponentByIdAsync(string robotComponentId);
 
-        Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string RobotId);
+        Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string robotId);
 
         Task CreateRobotComponentAsync(RobotComponent newRobotComponent);
+
+        Task DeleteRobotComponentAsync(string robotId);
     }
 }

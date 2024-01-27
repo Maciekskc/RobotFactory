@@ -28,19 +28,6 @@ namespace RobotFactory.Workers.ConstructionOrganizer
             if (robotObject == null)
                 throw new ArgumentException("Robot with given Id does not exist");
 
-            //RobotRepository.UpdateRobotProperty(robotObject.Id, robot=>robot.ConstructionStatus, )
-            //var components =
-            //    await RobotComponentsRepository.GetRobotComponentsByRobotIdAndComponentTypeAsync(robotObject.Id,
-            //        RobotComponentType.Body);
-            //if(components == null || !components.Any())
-            //    throw new DataException("There is not any maching component in storage");
-            //if (components.Count != 1)
-            //    throw new DataException("There is conflict in the components. More than one body found for robot with id " + robotObject.Id);
-
-            //await RobotRepository.AddRobotComponentAsync(robotObject.Id, typeof(Body), components.Single());
-            //await RobotComponentsRepository.DeleteRobotComponentAsync(components.Single().Id);
-
-            //robotObject.ConstructionStatus = RobotConstrucionStatus.ConstructionStarted;
             await RobotRepository.UpdateRobotProperty(robotObject.Id, robot => robot.ConstructionStatus,
                 RobotConstrucionStatus.ConstructionStarted);
             var newMessageModel = new RobotConstructionMountBodyMessage()

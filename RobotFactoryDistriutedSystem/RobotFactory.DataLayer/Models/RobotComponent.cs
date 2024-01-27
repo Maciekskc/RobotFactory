@@ -7,7 +7,7 @@ using RobotFactory.DataLayer.Enums;
 namespace RobotFactory.DataLayer.Models
 {
     [JsonConverter(typeof(RobotComponentConverter))]
-    public abstract class RobotComponent
+    public class RobotComponent
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

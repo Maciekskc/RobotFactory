@@ -29,9 +29,11 @@ namespace RobotFactory.DataAccessLayer.Repositories
             return _robotComponentsCollection.DeleteOneAsync(rc => rc.Id == robotComponentId);
         }
 
-        public Task<List<RobotComponent>> GetRobotComponentsByRobotIdAndComponentTypeAsync(string robotId, RobotComponentType componentsType)
+        public Task<List<Body>> GetRobotBodyComponentsByRobotIdAndComponentTypeAsync(string robotId)
         {
-            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId && rc.ComponentType == componentsType).ToListAsync();
+            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId && rc.ComponentType == RobotComponentType.Body)
+                .Project(rc => (Body)rc)
+                .ToListAsync();
         }
 
         public Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string robotId)

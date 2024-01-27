@@ -74,7 +74,7 @@ namespace RobotFactory.Workers.SharedComponents
         /// <param name="message">Single message from processing queue, deserialized into object</param>
         /// <returns>Queue Message object serialized into string</returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual async Task<string> ExecuteQueueActionAsync(T message)
+        protected virtual Task<string> ExecuteQueueActionAsync(T message)
         {
             throw new NotImplementedException();
         }

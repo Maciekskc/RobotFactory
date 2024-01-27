@@ -38,13 +38,30 @@ namespace RobotFactory.Workers.SharedComponents
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var messages = await QueueConsumer.ReadMessagesAsync(_parallelMessageProcessingCount);
-
-                foreach (var message in messages)
+                List<T> messagesList = new List<T>();
+                try
                 {
-                    _logger.LogInformation("Processing next message from queue");
-                    var processedMessage = await ExecuteQueueActionAsync(message);
-                    await QueuePublisher.PublishMessageAsync(processedMessage);
+                    messagesList = await QueueConsumer.ReadMessagesAsync(_parallelMessageProcessingCount);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Cannot read messages from queue. Exception thrown: {0}", ex.Message);
+                    throw;
+                }
+
+                foreach (var message in messagesList)
+                {
+                    try
+                    {
+                        _logger.LogInformation("Processing next message from queue");
+                        var processedMessage = await ExecuteQueueActionAsync(message);
+                        await QueuePublisher.PublishMessageAsync(processedMessage);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError("Cannot process message. Message ID {0}. Exception {1}", message.GetType().GetProperty("RobotId"), ex);
+                        throw;
+                    }
                 }
                 
                 await Task.Delay(_queueReadDelay, stoppingToken);

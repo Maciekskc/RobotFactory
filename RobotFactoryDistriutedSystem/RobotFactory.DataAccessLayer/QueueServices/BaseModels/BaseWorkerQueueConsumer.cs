@@ -36,15 +36,13 @@ namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
             foreach (QueueMessage message in receivedMessages)
                 try
                 {
-                    var messageText = Encoding.UTF8.GetString(Convert.FromBase64String(message.MessageText));
-                    _logger.LogDebug("Deserializing message: {0} into object of type {1}", messageText, typeof(T));
-                    deserializedMessages.Add(JsonSerializer.Deserialize<T>(messageText));
+                    _logger.LogDebug("Deserializing message: {0} into object of type {1}", message.MessageText, typeof(T));
+                    deserializedMessages.Add(JsonSerializer.Deserialize<T>(message.MessageText));
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError("Cannot deserialize message with Id: {0}", message.MessageId);
-
-                    //Here it should handle poisoned messages
+                    throw;
                 }
 
             return deserializedMessages;

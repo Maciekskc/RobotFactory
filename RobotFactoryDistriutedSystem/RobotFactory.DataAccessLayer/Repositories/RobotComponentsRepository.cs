@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
+using RobotFactory.DataLayer.Enums;
 using RobotFactory.DataLayer.Models;
 
 namespace RobotFactory.DataAccessLayer.Repositories
@@ -23,9 +24,14 @@ namespace RobotFactory.DataAccessLayer.Repositories
             return _robotComponentsCollection.InsertOneAsync(newRobotComponent);
         }
 
-        public Task DeleteRobotComponentAsync(string robotId)
+        public Task DeleteRobotComponentAsync(string robotComponentId)
         {
-            return _robotComponentsCollection.DeleteOneAsync(rc => rc.Id == robotId);
+            return _robotComponentsCollection.DeleteOneAsync(rc => rc.Id == robotComponentId);
+        }
+
+        public Task<List<RobotComponent>> GetRobotComponentsByRobotIdAndComponentTypeAsync(string robotId, RobotComponentType componentsType)
+        {
+            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId && rc.ComponentType == componentsType).ToListAsync();
         }
 
         public Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string robotId)

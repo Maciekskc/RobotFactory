@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic.FileIO;
 using MongoDB.Driver;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.DataLayer.Enums;
 using RobotFactory.DataLayer.Models;
+using System.Linq.Expressions;
 using static MongoDB.Driver.WriteConcern;
 
 namespace RobotFactory.DataAccessLayer.Repositories
@@ -40,10 +42,12 @@ namespace RobotFactory.DataAccessLayer.Repositories
             return await _robotsCollection.UpdateOneAsync(filter,update);
         }
 
-        public async Task<UpdateResult> UpdateRobotProperty(string robotId, UpdateDefinition<Robot> updateDefinition)
+        public async Task<UpdateResult> UpdateRobotProperty(string robotId, Expression<Func<Robot, object>> expresion, object value)
         {
             var filter = Builders<Robot>.Filter.Eq(robot => robot.Id, robotId);
-            return await _robotsCollection.UpdateOneAsync(filter, updateDefinition);
+            var update = Builders<Robot>.Update.Set(expresion, value);
+
+            return await _robotsCollection.UpdateOneAsync(filter, update);
         }
 
         public Task<List<Robot>> GetAllRobotsAsync()

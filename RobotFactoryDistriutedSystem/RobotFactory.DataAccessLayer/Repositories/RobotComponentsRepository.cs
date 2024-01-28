@@ -36,6 +36,27 @@ namespace RobotFactory.DataAccessLayer.Repositories
                 .ToListAsync();
         }
 
+        public Task<List<Head>> GetRobotHeadComponentsByRobotIdAndComponentTypeAsync(string robotId)
+        {
+            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId && rc.ComponentType == RobotComponentType.Head)
+                .Project(rc => (Head)rc)
+                .ToListAsync();
+        }
+
+        public Task<List<Arm>> GetRobotArmsComponentsByRobotIdAndComponentTypeAsync(string robotId)
+        {
+            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId && rc.ComponentType == RobotComponentType.Arm)
+                .Project(rc => (Arm)rc)
+                .ToListAsync();
+        }
+
+        public Task<List<Leg>> GetRobotLegsComponentsByRobotIdAndComponentTypeAsync(string robotId)
+        {
+            return _robotComponentsCollection.Find(rc => rc.RobotId == robotId && rc.ComponentType == RobotComponentType.Leg)
+                .Project(rc => (Leg)rc)
+                .ToListAsync();
+        }
+
         public Task<List<RobotComponent>> GetAllRobotComponentsByRobotIdAsync(string robotId)
         {
             return _robotComponentsCollection.Find(rc => rc.RobotId == robotId).ToListAsync();

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\RobotFactory.Workers.SharedComponents\RobotFactory.Workers.SharedComponents.csproj" />
     <ProjectReference Include="..\RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj" />
   </ItemGroup>
 

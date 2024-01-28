@@ -1,9 +1,11 @@
 ﻿using System.Text;
 using System.Text.Json;
+using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
+using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
 namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
 {
@@ -22,7 +24,7 @@ namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
             _logger = logger;
         }
 
-        public async Task<List<T>> ReadMessagesAsync(int maxMessageCount)
+        public async Task<List<QueueMessageWrapper<T>>> ReadMessagesAsync(int maxMessageCount)
         {
             if (!IsQueueInitialized())
                 throw new ArgumentNullException("QueueClient was not initialized");
@@ -32,12 +34,18 @@ namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
 
             _logger.LogDebug("Found {0} messages", receivedMessages.Length);
 
-            List<T> deserializedMessages = new List<T>();
+            List<QueueMessageWrapper<T>> deconstructedMessages = new List<QueueMessageWrapper<T>>();
             foreach (QueueMessage message in receivedMessages)
                 try
                 {
                     _logger.LogDebug("Deserializing message: {0} into object of type {1}", message.MessageText, typeof(T));
-                    deserializedMessages.Add(JsonSerializer.Deserialize<T>(message.MessageText));
+                    deconstructedMessages.Add(
+                        new QueueMessageWrapper<T>()
+                        {
+                            MessageId = message.MessageId,
+                            MessagePopReceipt = message.PopReceipt,
+                            MessageObject = JsonSerializer.Deserialize<T>(message.MessageText)
+                        });
                 }
                 catch (Exception ex)
                 {
@@ -45,7 +53,15 @@ namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
                     throw;
                 }
 
-            return deserializedMessages;
+            return deconstructedMessages;
+        }
+
+        public async Task RemoveMessagesFromQueueAsync(QueueMessageWrapper<T> message)
+        {
+            if (!IsQueueInitialized())
+                throw new ArgumentNullException("QueueClient was not initialized");
+            await QueueClient.DeleteMessageAsync(message.MessageId, message.MessagePopReceipt);
+            _logger.LogDebug("Message {0} consumed from reading queue", message.MessageId);
         }
     }
 }

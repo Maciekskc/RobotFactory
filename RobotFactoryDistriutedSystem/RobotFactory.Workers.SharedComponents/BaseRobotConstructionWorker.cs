@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
+using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
 namespace RobotFactory.Workers.SharedComponents
 {
@@ -38,7 +39,7 @@ namespace RobotFactory.Workers.SharedComponents
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                List<T> messagesList = new List<T>();
+                List<QueueMessageWrapper<T>> messagesList = new List<QueueMessageWrapper<T>>();
                 try
                 {
                     messagesList = await QueueConsumer.ReadMessagesAsync(_parallelMessageProcessingCount);
@@ -53,8 +54,9 @@ namespace RobotFactory.Workers.SharedComponents
                     try
                     {
                         _logger.LogInformation("Processing next message from queue");
-                        var processedMessage = await ExecuteQueueActionAsync(message);
+                        var processedMessage = await ExecuteQueueActionAsync(message.MessageObject);
                         await QueuePublisher.PublishMessageAsync(processedMessage);
+                        await QueueConsumer.RemoveMessagesFromQueueAsync(message);
                     }
                     catch (Exception ex)
                     {

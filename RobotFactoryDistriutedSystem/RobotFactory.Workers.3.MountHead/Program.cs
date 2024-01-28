@@ -12,7 +12,7 @@ builder.Services
 builder.Services.AddSingleton<IBaseWorkerQueuePublisher, RobotArmsConstructionQueueProducerService>();
 builder.Services.AddSingleton<IRobotComponentsRepository, RobotComponentsRepository>();
 builder.Services.AddSingleton<IRobotRepository, RobotRepository>();
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService<RobotConstructionMountHeadWorker>();
 
 var host = builder.Build();
 host.Run();

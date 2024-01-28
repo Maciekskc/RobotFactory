@@ -11,7 +11,7 @@ builder.Services
         RobotLegsConstructionQueueConsumerService>();
 builder.Services.AddSingleton<IRobotComponentsRepository, RobotComponentsRepository>();
 builder.Services.AddSingleton<IRobotRepository, RobotRepository>();
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService<RobotConstructionMountLegsWorker>();
 
 var host = builder.Build();
 host.Run();

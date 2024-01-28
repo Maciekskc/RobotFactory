@@ -39,7 +39,7 @@ namespace RobotFactory.Workers._3.MountHead
             var headToMount = components.Single();
 
             await RobotRepository.AddRobotComponentAsync(robotObject.Id, typeof(Head), headToMount);
-            await RobotRepository.UpdateRobotProperty(robotObject.Id, robot => robot.Body.MountedAt,
+            await RobotRepository.UpdateRobotProperty(robotObject.Id, robot => robot.Head.MountedAt,
                 DateTime.Now);
             await RobotComponentsRepository.DeleteRobotComponentAsync(headToMount.Id);
 

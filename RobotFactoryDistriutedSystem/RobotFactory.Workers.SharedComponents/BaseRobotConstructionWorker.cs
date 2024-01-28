@@ -46,7 +46,6 @@ namespace RobotFactory.Workers.SharedComponents
                 catch (Exception ex)
                 {
                     _logger.LogError("Cannot read messages from queue. Exception thrown: {0}", ex.Message);
-                    throw;
                 }
 
                 foreach (var message in messagesList)
@@ -60,7 +59,6 @@ namespace RobotFactory.Workers.SharedComponents
                     catch (Exception ex)
                     {
                         _logger.LogError("Cannot process message. Message ID {0}. Exception {1}", message.GetType().GetProperty("RobotId"), ex);
-                        throw;
                     }
                 }
                 

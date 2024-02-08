@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.WebApi", "RobotFactoryWebApi\RobotFactory.WebApi.csproj", "{6834C1A8-4BD9-4951-AFDD-7DD76DFAECEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.SharedComponents", "RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj", "{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentDockerComponents", "DevelopmentDockerComponents", "{D1E81BFE-E680-4019-AE3D-5A9D9A53928A}"
+	ProjectSection(SolutionItems) = preProject
+		local-development-docker-compose.yml = local-development-docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataLayer", "RobotFactory.DataLayer\RobotFactory.DataLayer.csproj", "{1A263A59-7560-4158-9656-42605A31BC31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.DataAccessLayer", "RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj", "{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.ComponentSupplier", "RobotFactory.ComponentSuplierFunctions\RobotFactory.ComponentSupplier.csproj", "{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentAzureStorage", "DevelopmentAzureStorage", "{79657891-52DD-4027-8BB5-7D589FD7DF51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobotFactory.RobotConstructionWorkers", "RobotFactory.RobotConstructionWorkers", "{70F0712B-37A9-468B-AF7D-1F31DF4D54A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.ConstructionOrganizers", "RobotFactory.Workers.ConstructionOrganizers\RobotFactory.Workers.ConstructionOrganizers.csproj", "{D8B3DC71-6191-4572-9448-F818F7303C1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.SharedComponents", "RobotFactory.Workers.SharedComponents\RobotFactory.Workers.SharedComponents.csproj", "{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.ComponentAssemblers", "RobotFactory.Workers.ComponentAssemblers\RobotFactory.Workers.ComponentAssemblers.csproj", "{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6834C1A8-4BD9-4951-AFDD-7DD76DFAECEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6834C1A8-4BD9-4951-AFDD-7DD76DFAECEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6834C1A8-4BD9-4951-AFDD-7DD76DFAECEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6834C1A8-4BD9-4951-AFDD-7DD76DFAECEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB136C61-0FFC-49E2-BF1D-DE23E4DE7CA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A263A59-7560-4158-9656-42605A31BC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A263A59-7560-4158-9656-42605A31BC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A263A59-7560-4158-9656-42605A31BC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A263A59-7560-4158-9656-42605A31BC31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85BD7AE3-CC98-4E62-AE4A-6D24F4EECD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD4EFBA-7192-42C3-8945-6853B71B0D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B3DC71-6191-4572-9448-F818F7303C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8B3DC71-6191-4572-9448-F818F7303C1F} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
+		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03170B42-E0B9-4364-80AC-6AA006D4D19D}
+	EndGlobalSection
+EndGlobal

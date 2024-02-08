@@ -1,0 +1,17 @@
+@RobotFactoryWebApi_HostAddress = http://localhost:5178
+
+GET {{RobotFactoryWebApi_HostAddress}}/health-check/
+Accept: application/json
+
+###
+
+POST {{RobotFactoryWebApi_HostAddress}}/order-robot/
+Accept: application/json
+
+###
+
+POST {{RobotFactoryWebApi_HostAddress}}/supply-components/
+Accept: application/json
+
+{"Components":[{"ArmsNumbers":2,"LegsNumber":2,"Id":null,"RobotId":"65897a3f155118fc3a0c2f29","ComponentType":1,"CreatedAt":"2023-12-25T22:44:59.6560113+01:00","MountedAt":null},{"CPUCoresNumber":8,"Id":null,"RobotId":"65897a3f155118fc3a0c2f29","ComponentType":0,"CreatedAt":"2023-12-25T22:44:58.6284687+01:00","MountedAt":null},{"ArmSite":0,"Id":null,"RobotId":"65897a3f155118fc3a0c2f29","ComponentType":2,"CreatedAt":"2023-12-25T22:44:56.6254748+01:00","MountedAt":null},{"ArmSite":1,"Id":null,"RobotId":"65897a3f155118fc3a0c2f29","ComponentType":2,"CreatedAt":"2023-12-25T22:44:56.6309787+01:00","MountedAt":null},{"LegSite":0,"Id":null,"RobotId":"65897a3f155118fc3a0c2f29","ComponentType":3,"CreatedAt":"2023-12-25T22:44:56.4384976+01:00","MountedAt":null},{"LegSite":1,"Id":null,"RobotId":"65897a3f155118fc3a0c2f29","ComponentType":3,"CreatedAt":"2023-12-25T22:44:56.43848+01:00","MountedAt":null}]}
+###

@@ -29,19 +29,5 @@
             get;
             set;
         }
-
-        
-
-        public string FinalizeConstructionQueueName
-        {
-            get;
-            set;
-        }
-
-        public string FinalizeConstructionQueueSasToken
-        {
-            get;
-            set;
-        }
     }
 }

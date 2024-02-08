@@ -4,9 +4,9 @@ using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.DataAccessLayer.Repositories;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
-using RobotFactory.Workers.ConstructionOrganizer.QueueServices;
 using RobotFactory.Workers.ConstructionOrganizers;
 using RobotFactory.Workers.ConstructionOrganizers.Helpers;
+using RobotFactory.Workers.ConstructionOrganizers.QueueServices;
 
 var builder = Host.CreateApplicationBuilder(args);
 

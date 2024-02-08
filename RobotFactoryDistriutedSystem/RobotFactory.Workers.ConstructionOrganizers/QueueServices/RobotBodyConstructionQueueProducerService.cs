@@ -1,7 +1,7 @@
 ﻿using RobotFactory.DataAccessLayer.QueueServices.BaseModels;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
-namespace RobotFactory.Workers.ConstructionOrganizer.QueueServices
+namespace RobotFactory.Workers.ConstructionOrganizers.QueueServices
 {
     public class RobotBodyConstructionQueueProducerService : BaseWorkerQueuePublisher<RobotConstructionMountBodyMessage>
     {

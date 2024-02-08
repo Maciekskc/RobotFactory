@@ -7,17 +7,6 @@
             get;
             set;
         }
-        public string StartConstructionQueueName
-        {
-            get;
-            set;
-        }
-
-        public string StartConstructionQueueSasToken
-        {
-            get;
-            set;
-        }
 
         public string MountBodyQueueName {
             get;

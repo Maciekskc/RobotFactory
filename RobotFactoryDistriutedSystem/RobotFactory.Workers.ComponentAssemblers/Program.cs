@@ -1,5 +1,3 @@
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
 using RobotFactory.DataAccessLayer.Repositories;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.Workers.ComponentAssemblers.Helpers;

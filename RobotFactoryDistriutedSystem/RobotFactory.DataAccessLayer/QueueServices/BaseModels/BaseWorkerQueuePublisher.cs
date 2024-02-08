@@ -16,7 +16,7 @@ namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
         {
             if (!IsQueueInitialized())
                 throw new ArgumentNullException("QueueClient was not initialized");
-            _logger.LogInformation("Attempt to add initialize robot creation message to queue");
+            _logger.LogInformation("Attempt to add message of type {0} to queue", typeof(T));
             var queueResponse = await QueueClient.SendMessageAsync(message);
 
             _logger.LogInformation("Message Added. New Mesage Id: {0}", queueResponse.Value.MessageId);

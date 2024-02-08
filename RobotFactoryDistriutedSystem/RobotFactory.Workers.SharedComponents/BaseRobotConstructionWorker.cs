@@ -7,22 +7,24 @@ using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
 namespace RobotFactory.Workers.SharedComponents
 {
-    public class BaseRobotConstructionWorker<T> : BackgroundService where T : class
+    public class BaseRobotConstructionWorker<QcType,QpType> : BackgroundService 
+        where QcType : class 
+        where QpType : class
     {
 
         private const string ParallelMessageProcessingCountConfigurationName = "WorkerConfiguration:WorkerParallelMessageProcessingCount";
         private const string QueueReadDelaySettingName = "WorkerConfiguration:WorkerProessingDelay";
 
-        private readonly ILogger<BaseRobotConstructionWorker<T>> _logger;
+        private readonly ILogger<BaseRobotConstructionWorker<QcType, QpType>> _logger;
         private readonly int _parallelMessageProcessingCount;
         private readonly int _queueReadDelay;
 
-        protected IBaseWorkerQueueConsumer<T> QueueConsumer { get; set; }
-        protected IBaseWorkerQueuePublisher QueuePublisher { get; set; }
+        protected IBaseWorkerQueueConsumer<QcType> QueueConsumer { get; set; }
+        protected IBaseWorkerQueuePublisher<QpType> QueuePublisher { get; set; }
         protected IRobotComponentsRepository RobotComponentsRepository { get; set; }
         protected IRobotRepository RobotRepository { get; set; }
 
-        public BaseRobotConstructionWorker(ILogger<BaseRobotConstructionWorker<T>> logger, IBaseWorkerQueueConsumer<T> queueConsumer, IBaseWorkerQueuePublisher queuePublisher, IConfiguration configuration, IRobotComponentsRepository robotComponentsRepository, IRobotRepository robotRepository)
+        public BaseRobotConstructionWorker(ILogger<BaseRobotConstructionWorker<QcType, QpType>> logger, IBaseWorkerQueueConsumer<QcType> queueConsumer, IBaseWorkerQueuePublisher<QpType> queuePublisher, IConfiguration configuration, IRobotComponentsRepository robotComponentsRepository, IRobotRepository robotRepository)
         {
             _logger = logger;
             QueueConsumer = queueConsumer;
@@ -39,7 +41,7 @@ namespace RobotFactory.Workers.SharedComponents
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                List<QueueMessageWrapper<T>> messagesList = new List<QueueMessageWrapper<T>>();
+                List<QueueMessageWrapper<QcType>> messagesList = new List<QueueMessageWrapper<QcType>>();
                 try
                 {
                     messagesList = await QueueConsumer.ReadMessagesAsync(_parallelMessageProcessingCount);
@@ -74,7 +76,7 @@ namespace RobotFactory.Workers.SharedComponents
         /// <param name="message">Single message from processing queue, deserialized into object</param>
         /// <returns>Queue Message object serialized into string</returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected virtual Task<string> ExecuteQueueActionAsync(T message)
+        protected virtual Task<string> ExecuteQueueActionAsync(QcType message)
         {
             throw new NotImplementedException();
         }

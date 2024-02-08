@@ -28,7 +28,7 @@ namespace RobotFactory.WebApi.Handlers.Robot
                 await _robotComponentsRepository.CreateRobotComponentAsync(component);
             }
 
-            var constractionQueueMessage = new StartRobotConstruction()
+            var constractionQueueMessage = new StartRobotConstructionMessage()
             {
                 RobotId = request.Components.First().RobotId,
                 RobotConstructingStartTime = DateTime.Now

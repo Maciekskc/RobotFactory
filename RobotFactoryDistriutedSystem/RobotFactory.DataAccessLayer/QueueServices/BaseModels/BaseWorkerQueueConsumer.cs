@@ -1,8 +1,5 @@
-﻿using System.Text;
-using System.Text.Json;
-using Azure.Storage.Queues;
+﻿using System.Text.Json;
 using Azure.Storage.Queues.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
@@ -11,15 +8,11 @@ namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
 {
     public class BaseWorkerQueueConsumer<T> : BaseQueueService, IBaseWorkerQueueConsumer<T> where T : class
     {
-        private const string QueueNameSettingName = "WorkerConfiguration:WorkerConsumingMessageQueueName";
-        private const string QueueUriSettingName = "WorkerConfiguration:WorkerConsumingMessageQueueUri";
-        private const string QueueSasTokenSettingName = "WorkerConfiguration:WorkerConsumingMessageQueueSasToken";
 
         private readonly ILogger<BaseWorkerQueueConsumer<T>> _logger;
 
-        public BaseWorkerQueueConsumer(IConfiguration configuration, ILogger<BaseWorkerQueueConsumer<T>> logger)
-            : base(configuration, QueueNameSettingName, QueueUriSettingName, QueueSasTokenSettingName)
-
+        public BaseWorkerQueueConsumer(ILogger<BaseWorkerQueueConsumer<T>> logger, string queueName, string queueUri, string queueSasToken)
+            : base(queueName, queueUri, queueSasToken)
         {
             _logger = logger;
         }

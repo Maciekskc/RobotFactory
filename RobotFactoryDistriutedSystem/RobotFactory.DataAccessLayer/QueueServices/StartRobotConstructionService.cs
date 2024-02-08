@@ -16,12 +16,13 @@ namespace RobotFactory.DataAccessLayer.QueueServices
         private readonly ILogger<StartRobotConstructionService> _logger;
 
         public StartRobotConstructionService(IConfiguration configuration, ILogger<StartRobotConstructionService> logger)
-            : base(configuration, QueueNameSettingName, QueueUriSettingName, QueueSasTokenSettingName)
+            : base(configuration[QueueNameSettingName], configuration[QueueUriSettingName], configuration[QueueSasTokenSettingName])
         {
             _logger = logger;
+            
         }
 
-        public async Task AddMessageToQueue(StartRobotConstruction robotConstructionRequest)
+        public async Task AddMessageToQueue(StartRobotConstructionMessage robotConstructionRequest)
         {
             if (!IsQueueInitialized())
                 throw new ArgumentNullException("QueueClient cannot be initialized");

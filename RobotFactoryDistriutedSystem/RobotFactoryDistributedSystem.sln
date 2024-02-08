@@ -22,17 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevelopmentAzureStorage", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RobotFactory.RobotConstructionWorkers", "RobotFactory.RobotConstructionWorkers", "{70F0712B-37A9-468B-AF7D-1F31DF4D54A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.1.ConstructionStarter", "RobotFactory.Workers.1.ConstructionStarter\RobotFactory.Workers.1.ConstructionStarter.csproj", "{D8B3DC71-6191-4572-9448-F818F7303C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.ConstructionOrganizers", "RobotFactory.Workers.ConstructionOrganizers\RobotFactory.Workers.ConstructionOrganizers.csproj", "{D8B3DC71-6191-4572-9448-F818F7303C1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.SharedComponents", "RobotFactory.Workers.SharedComponents\RobotFactory.Workers.SharedComponents.csproj", "{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.2.MountBody", "RobotFactory.Workers.2.MountBodyWorker\RobotFactory.Workers.2.MountBody.csproj", "{078A2A66-EB0B-445D-AE59-ED34AC0DB199}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.3.MountHead", "RobotFactory.Workers.3.MountHead\RobotFactory.Workers.3.MountHead.csproj", "{A699228C-3240-407C-8E83-FED4D36B1552}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.4.MountArms", "RobotFactory.Workers.4.MountArms\RobotFactory.Workers.4.MountArms.csproj", "{EF025CDB-5223-4EEB-BFA2-C337CA29ADEB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotFactory.Workers.5.MountLegs", "RobotFactory.Workers.5.MountLegs\RobotFactory.Workers.5.MountLegs.csproj", "{B5339546-BAE7-4080-B7D5-B03A3BF58125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotFactory.Workers.ComponentAssemblers", "RobotFactory.Workers.ComponentAssemblers\RobotFactory.Workers.ComponentAssemblers.csproj", "{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,22 +62,10 @@ Global
 		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590}.Release|Any CPU.Build.0 = Release|Any CPU
-		{078A2A66-EB0B-445D-AE59-ED34AC0DB199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{078A2A66-EB0B-445D-AE59-ED34AC0DB199}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{078A2A66-EB0B-445D-AE59-ED34AC0DB199}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{078A2A66-EB0B-445D-AE59-ED34AC0DB199}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A699228C-3240-407C-8E83-FED4D36B1552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A699228C-3240-407C-8E83-FED4D36B1552}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A699228C-3240-407C-8E83-FED4D36B1552}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A699228C-3240-407C-8E83-FED4D36B1552}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF025CDB-5223-4EEB-BFA2-C337CA29ADEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF025CDB-5223-4EEB-BFA2-C337CA29ADEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF025CDB-5223-4EEB-BFA2-C337CA29ADEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF025CDB-5223-4EEB-BFA2-C337CA29ADEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5339546-BAE7-4080-B7D5-B03A3BF58125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5339546-BAE7-4080-B7D5-B03A3BF58125}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5339546-BAE7-4080-B7D5-B03A3BF58125}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5339546-BAE7-4080-B7D5-B03A3BF58125}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,10 +73,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D8B3DC71-6191-4572-9448-F818F7303C1F} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
 		{F2FA75E8-D696-4CC9-AD1C-E85F20AE3590} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
-		{078A2A66-EB0B-445D-AE59-ED34AC0DB199} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
-		{A699228C-3240-407C-8E83-FED4D36B1552} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
-		{EF025CDB-5223-4EEB-BFA2-C337CA29ADEB} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
-		{B5339546-BAE7-4080-B7D5-B03A3BF58125} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
+		{41B2A852-8F84-4E5B-8CD6-43A9E1D728E8} = {70F0712B-37A9-468B-AF7D-1F31DF4D54A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03170B42-E0B9-4364-80AC-6AA006D4D19D}

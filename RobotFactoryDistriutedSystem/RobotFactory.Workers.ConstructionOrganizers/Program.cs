@@ -4,15 +4,16 @@ using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 using RobotFactory.Workers.ConstructionOrganizer;
 using RobotFactory.Workers.ConstructionOrganizer.QueueServices;
+using RobotFactory.Workers.ConstructionOrganizers;
 
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services
-    .AddSingleton<IBaseWorkerQueueConsumer<StartRobotConstruction>,
-        StartRobotConstructionQueueConsumerService>();
-builder.Services.AddSingleton<IBaseWorkerQueuePublisher,RobotBodyConstructionQueueProducerService>();
-builder.Services.AddSingleton<IRobotComponentsRepository, RobotComponentsRepository>();
-builder.Services.AddSingleton<IRobotRepository, RobotRepository>();
+//builder.Services
+//    .AddSingleton<IBaseWorkerQueueConsumer<StartRobotConstructionMessage>,
+//        StartRobotConstructionQueueConsumerService>();
+//builder.Services.AddSingleton<IBaseWorkerQueuePublisher,RobotBodyConstructionQueueProducerService>();
+//builder.Services.AddSingleton<IRobotComponentsRepository, RobotComponentsRepository>();
+//builder.Services.AddSingleton<IRobotRepository, RobotRepository>();
 
 builder.Services.AddHostedService<StartRobotConstructionWorker>();
 var host = builder.Build();

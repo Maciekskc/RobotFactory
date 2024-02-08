@@ -1,26 +1,21 @@
-using System.Data;
 using System.Text.Json;
-using MongoDB.Bson.Serialization;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
 using RobotFactory.DataLayer.Enums;
-using RobotFactory.DataLayer.Models;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
-using RobotFactory.Workers.ConstructionOrganizer.QueueServices;
 using RobotFactory.Workers.SharedComponents;
 
-namespace RobotFactory.Workers.ConstructionOrganizer
+namespace RobotFactory.Workers.ConstructionOrganizers
 {
-    public class StartRobotConstructionWorker : BaseRobotConstructionWorker<StartRobotConstruction>
+    public class StartRobotConstructionWorker : BaseRobotConstructionWorker<StartRobotConstructionMessage,RobotConstructionMountBodyMessage>
     {
         private readonly ILogger<StartRobotConstructionWorker> _logger;
-        public StartRobotConstructionWorker(ILogger<BaseRobotConstructionWorker<StartRobotConstruction>> logger, IBaseWorkerQueueConsumer<StartRobotConstruction> queueConsumer, IBaseWorkerQueuePublisher queuePublisher, IConfiguration configuration, IRobotComponentsRepository robotComponentsRepository, IRobotRepository robotRepository, ILogger<StartRobotConstructionWorker> logger1)
-            : base(logger, queueConsumer, queuePublisher, configuration, robotComponentsRepository, robotRepository)
+
+        public StartRobotConstructionWorker(ILogger<BaseRobotConstructionWorker<StartRobotConstructionMessage, RobotConstructionMountBodyMessage>> logger, IBaseWorkerQueueConsumer<StartRobotConstructionMessage> queueConsumer, IBaseWorkerQueuePublisher<RobotConstructionMountBodyMessage> queuePublisher, IConfiguration configuration, IRobotComponentsRepository robotComponentsRepository, IRobotRepository robotRepository, ILogger<StartRobotConstructionWorker> logger1) : base(logger, queueConsumer, queuePublisher, configuration, robotComponentsRepository, robotRepository)
         {
             _logger = logger1;
         }
-
-        protected override async Task<string> ExecuteQueueActionAsync(StartRobotConstruction message)
+        protected override async Task<string> ExecuteQueueActionAsync(StartRobotConstructionMessage message)
         {
             _logger.LogInformation("Worker is processing the request");
 

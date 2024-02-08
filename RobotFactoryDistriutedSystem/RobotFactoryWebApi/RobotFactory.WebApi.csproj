@@ -21,4 +21,8 @@
     <ProjectReference Include="..\RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

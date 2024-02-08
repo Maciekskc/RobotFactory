@@ -16,7 +16,7 @@ namespace RobotFactory.DataAccessLayer.QueueServices
         private readonly ILogger<InitializeRobotCreationQueueService> _logger;
 
         public InitializeRobotCreationQueueService(IConfiguration configuration, ILogger<InitializeRobotCreationQueueService> logger)
-            : base(configuration, QueueNameSettingName, QueueUriSettingName, QueueSasTokenSettingName)
+            : base(configuration[QueueNameSettingName], configuration[QueueUriSettingName], configuration[QueueSasTokenSettingName])
         {
             _logger = logger;
         }

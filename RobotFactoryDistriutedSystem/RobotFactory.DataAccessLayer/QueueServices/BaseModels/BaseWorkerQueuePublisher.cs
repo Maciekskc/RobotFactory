@@ -1,18 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces.BaseModels;
 
 namespace RobotFactory.DataAccessLayer.QueueServices.BaseModels
 {
-    public class BaseWorkerQueuePublisher : BaseQueueService, IBaseWorkerQueuePublisher
+    public class BaseWorkerQueuePublisher<T> : BaseQueueService, IBaseWorkerQueuePublisher<T> 
     {
-        private const string QueueNameSettingName = "WorkerConfiguration:WorkerProducingMessageQueueName";
-        private const string QueueUriSettingName = "WorkerConfiguration:WorkerProducingMessageQueueUri";
-        private const string QueueSasTokenSettingName = "WorkerConfiguration:WorkerProducingMessageQueueSasToken";
-
-        private readonly ILogger<BaseWorkerQueuePublisher> _logger;
-        public BaseWorkerQueuePublisher(IConfiguration configuration, ILogger<BaseWorkerQueuePublisher> logger)
-            : base(configuration, QueueNameSettingName, QueueUriSettingName, QueueSasTokenSettingName)
+        private readonly ILogger<BaseWorkerQueuePublisher<T>> _logger;
+        public BaseWorkerQueuePublisher(string queueName, string queueUri, string queueSasToken, ILogger<BaseWorkerQueuePublisher<T>> logger)
+            : base(queueName, queueUri, queueSasToken)
         {
             _logger = logger;
         }

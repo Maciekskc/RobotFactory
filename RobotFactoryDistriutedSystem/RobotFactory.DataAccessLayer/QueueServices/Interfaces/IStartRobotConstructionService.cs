@@ -4,6 +4,6 @@ namespace RobotFactory.DataAccessLayer.QueueServices.Interfaces
 {
     public interface IStartRobotConstructionService
     {
-        Task AddMessageToQueue(StartRobotConstruction robotConstructionRequest);
+        Task AddMessageToQueue(StartRobotConstructionMessage robotConstructionRequest);
     }
 }

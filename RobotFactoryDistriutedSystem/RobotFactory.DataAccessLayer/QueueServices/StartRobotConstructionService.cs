@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
-using Azure;
-using Azure.Storage.Queues;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using RobotFactory.DataAccessLayer.QueueServices.BaseModels;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
 using RobotFactory.SharedComponents.Dtos.QueueObjects;
 
@@ -10,22 +9,27 @@ namespace RobotFactory.DataAccessLayer.QueueServices
 {
     public class StartRobotConstructionService : BaseQueueService, IStartRobotConstructionService
     {
-        private readonly ILogger<StartRobotConstructionService> _loggger;
+        private const string QueueNameSettingName = "AzureStorageQueue:StartRobotConstructionQueueName";
+        private const string QueueUriSettingName = "AzureStorageQueue:QueueBaseUri";
+        private const string QueueSasTokenSettingName = "AzureStorageQueue:StartRobotConstructionQueueSasToken";
 
-        public StartRobotConstructionService(IConfiguration configuration, ILogger<StartRobotConstructionService> loggger)
-        :base(configuration, "AzureStorageQueue:StartRobotConstructionQueueName", "AzureStorageQueue:QueueBaseUri", "AzureStorageQueue:StartRobotConstructionQueueSasToken")
+        private readonly ILogger<StartRobotConstructionService> _logger;
+
+        public StartRobotConstructionService(IConfiguration configuration, ILogger<StartRobotConstructionService> logger)
+            : base(configuration[QueueNameSettingName], configuration[QueueUriSettingName], configuration[QueueSasTokenSettingName])
         {
-            _loggger = loggger;
+            _logger = logger;
+            
         }
 
-        public async Task AddMessageToQueue(StartRobotConstruction robotConstructionRequest)
+        public async Task AddMessageToQueue(StartRobotConstructionMessage robotConstructionRequest)
         {
-            if (_queueClient == null)
+            if (!IsQueueInitialized())
                 throw new ArgumentNullException("QueueClient cannot be initialized");
-            _loggger.LogInformation("Attempt to add start robot construction message to queue");
-            var queueResponse = await _queueClient.SendMessageAsync(JsonSerializer.Serialize(robotConstructionRequest));
+            _logger.LogInformation("Attempt to add start robot construction message to queue");
+            var queueResponse = await QueueClient.SendMessageAsync(JsonSerializer.Serialize(robotConstructionRequest));
 
-            _loggger.LogInformation("Message Added. New Mesage Id: {0}", queueResponse.Value.MessageId);
+            _logger.LogInformation("Message Added. New Mesage Id: {0}", queueResponse.Value.MessageId);
         }
     }
 }

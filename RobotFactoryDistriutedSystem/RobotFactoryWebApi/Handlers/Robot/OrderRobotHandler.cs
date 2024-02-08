@@ -35,7 +35,8 @@ namespace RobotFactory.WebApi.Handlers.Robot
         {
             var robot = new DataLayer.Models.Robot()
             {
-                OrderedAt = DateTime.Now
+                OrderedAt = DateTime.Now,
+                ConstructionStatus = RobotConstrucionStatus.AwaitingComponents
             };
             _logger.LogInformation("Attempt to create robot in the database. Robot: {0}", JsonConvert.SerializeObject(robot));
             await _robotRepository.CreateRobotAsync(robot);

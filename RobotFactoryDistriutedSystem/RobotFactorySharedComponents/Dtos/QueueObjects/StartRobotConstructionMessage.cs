@@ -1,6 +1,6 @@
 ﻿namespace RobotFactory.SharedComponents.Dtos.QueueObjects
 {
-    public class StartRobotConstruction : BaseRobotCreationMessageModel
+    public class StartRobotConstructionMessage : BaseRobotCreationMessageModel
     {
         public DateTime RobotConstructingStartTime { get; set; }
     }

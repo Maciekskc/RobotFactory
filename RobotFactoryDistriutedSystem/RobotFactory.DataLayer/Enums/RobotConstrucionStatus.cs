@@ -4,6 +4,7 @@
     {
         Initialized = 0,
         AwaitingComponents = 1,
-        Constructed = 2
+        ConstructionStarted = 2,
+        Constructed = 3
     }
 }

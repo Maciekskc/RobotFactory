@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "storageAccountType": {
+        "value": "Standard_LRS"
+      },
+      "storageAccountName": {
+        "value": "robotfactorystorage"
+      },
+      "finalizeConstructionQueueName": {
+        "value": ""
+      },
+      "initializeRobotCreationQueueName": {
+        "value": "initialize-robot-creation-queue"
+      },
+      "startConstructionQueueName": {
+        "value": "start-robot-construction-queue"
+      },
+      "mountBodyQueueName": {
+        "value": "robot-construction-mount-body-queue"
+      },
+      "mountHeadQueueName": {
+        "value": "robot-construction-mount-head-queue"
+      },
+      "mountArmsQueueName": {
+        "value": "robot-construction-mount-arms-queue"
+      },
+      "mountLegsQueueName": {
+        "value": "robot-construction-mount-legs-queue"
+      },
+      "finalizeConstructionQueueName": {
+        "value": "finalize-robot-construction-queue"
+      }
+    }
+  }
+  

@@ -1,3 +1,4 @@
+using Azure.Identity;
 using MediatR;
 using RobotFactory.DataAccessLayer.QueueServices;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
@@ -8,6 +9,16 @@ using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.SupplyComponents;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddAzureAppConfiguration(options =>
+{
+    options.Connect(
+            builder.Configuration["AzureKeyVaultConnection"])
+        .ConfigureKeyVault(kv =>
+        {
+            kv.SetCredential(new DefaultAzureCredential());
+        });
+});
 
 // Add services to the container.
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();

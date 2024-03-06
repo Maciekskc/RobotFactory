@@ -32,7 +32,7 @@ param secretsPermissions array = [
 @description('Specifies whether the key vault is a standard vault or a premium vault.')
 @allowed([
   'standard'
-  'premium'
+  // 'premium'
 ])
 param skuName string = 'standard'
 
@@ -46,16 +46,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2021-11-01-preview' = {
     tenantId: tenantId
     enableSoftDelete: true
     softDeleteRetentionInDays: 90
-    accessPolicies: [
-      {
-        objectId: objectId
-        tenantId: tenantId
-        permissions: {
-          keys: keysPermissions
-          secrets: secretsPermissions
-        }
-      }
-    ]
     sku: {
       name: skuName
       family: 'A'
@@ -136,5 +126,34 @@ resource StartRobotConstructionQueueSasToken 'Microsoft.KeyVault/vaults/secrets@
   name: 'AzureStorageQueue--StartRobotConstructionQueueSasToken'
   properties: {
     value: 'default'
+  }
+}
+
+resource symbolicname 'Microsoft.Authorization/roleDefinitions@2022-04-01' = {
+  name: 'SecretOfficer'
+  scope: resourceGroup()
+  properties: {
+    assignableScopes: [
+      'string'
+    ]
+    description: 'string'
+    permissions: [
+      {
+        dataActions: [
+          'string'
+        ]
+      }
+    ]
+    roleName: 'string'
+    type: 'string'
+  }
+}
+
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+  name: guid(subscription().id, keyVaultName, 'KeyVaultSecurityOfficerRoleAssignment')
+  scope: keyVaultResource.id
+  properties: {
+    principalId: userId
+    roleDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/b1b4b9cd-f532-48d6-8f42-80c52fe1e1d2' // Role definition for Key Vault Contributor role
   }
 }

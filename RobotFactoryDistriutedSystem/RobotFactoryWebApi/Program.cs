@@ -10,15 +10,12 @@ using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.SupplyComponents;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddAzureAppConfiguration(options =>
-{
-    options.Connect(
-            builder.Configuration["AzureKeyVaultConnection"])
-        .ConfigureKeyVault(kv =>
-        {
-            kv.SetCredential(new DefaultAzureCredential());
-        });
-});
+builder.Configuration.AddAzureKeyVault(
+    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+    new DefaultAzureCredential(new DefaultAzureCredentialOptions
+    {
+        ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
+    }));
 
 // Add services to the container.
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();

@@ -17,17 +17,7 @@ param enabledForTemplateDeployment bool = false
 param tenantId string = subscription().tenantId
 
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
-param objectId string
-
-@description('Specifies the permissions to keys in the vault. Valid values are: all, encrypt, decrypt, wrapKey, unwrapKey, sign, verify, get, list, create, update, import, delete, backup, restore, recover, and purge.')
-param keysPermissions array = [
-  'list'
-]
-
-@description('Specifies the permissions to secrets in the vault. Valid values are: all, get, list, set, delete, backup, restore, recover, and purge.')
-param secretsPermissions array = [
-  'list'
-]
+param principalId string
 
 @description('Specifies whether the key vault is a standard vault or a premium vault.')
 @allowed([
@@ -50,6 +40,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2021-11-01-preview' = {
       name: skuName
       family: 'A'
     }
+    accessPolicies:[]
     networkAcls: {
       defaultAction: 'Allow'
       bypass: 'AzureServices'
@@ -129,31 +120,11 @@ resource StartRobotConstructionQueueSasToken 'Microsoft.KeyVault/vaults/secrets@
   }
 }
 
-resource symbolicname 'Microsoft.Authorization/roleDefinitions@2022-04-01' = {
-  name: 'SecretOfficer'
-  scope: resourceGroup()
-  properties: {
-    assignableScopes: [
-      'string'
-    ]
-    description: 'string'
-    permissions: [
-      {
-        dataActions: [
-          'string'
-        ]
-      }
-    ]
-    roleName: 'string'
-    type: 'string'
-  }
-}
-
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
   name: guid(subscription().id, keyVaultName, 'KeyVaultSecurityOfficerRoleAssignment')
-  scope: keyVaultResource.id
+  scope: keyVault
   properties: {
-    principalId: userId
-    roleDefinitionId: '/subscriptions/${subscription().subscriptionId}/providers/Microsoft.Authorization/roleDefinitions/b1b4b9cd-f532-48d6-8f42-80c52fe1e1d2' // Role definition for Key Vault Contributor role
+    principalId: principalId
+    roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/b86a8fe4-44ce-4948-aee5-eccb2c155cd7' // Role definition for Key Vault Contributor role
   }
 }

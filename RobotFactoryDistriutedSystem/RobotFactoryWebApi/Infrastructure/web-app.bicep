@@ -5,9 +5,7 @@ param location string = resourceGroup().location // Location for all resources
 var appServicePlanName = toLower('${webAppName}-appplan')
 var webSiteName = toLower('${webAppName}-app')
 var webSiteIdentity = toLower('${webAppName}-msi')
-
-// param kvName string
-// var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
+param kvName string = ''
 
 resource msi 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: webSiteIdentity
@@ -33,7 +31,18 @@ resource appService 'Microsoft.Web/sites@2020-06-01' = {
     serverFarmId: appServicePlan.id
     siteConfig: {
       linuxFxVersion: linuxFxVersion
+      appSettings:[
+        {
+          name: 'AzureADManagedIdentityClientId'
+          value: msi.properties.clientId
+        }
+        {
+          name: 'KeyVaultName'
+          value: kvName
+        }
+      ]
     }
+  
   }
   identity: {
     type: 'UserAssigned'
@@ -43,12 +52,4 @@ resource appService 'Microsoft.Web/sites@2020-06-01' = {
   }
 }
 
-// resource kvRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-//   name: guid(msi.id, resourceGroup().id, kvSecretUserRoleId)
-//   scope: az.resourceGroup()('Microsoft.KeyVault/vaults', resourceGroup().name, kvName)
-//   properties: {
-//     principalType: 'ServicePrincipal'
-//     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', kvSecretUserRoleId)
-//     principalId: msi.properties.principalId
-//   }
-// }
+output identityId string = msi.properties.clientId

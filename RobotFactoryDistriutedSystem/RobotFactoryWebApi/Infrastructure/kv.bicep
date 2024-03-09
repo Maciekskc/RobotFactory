@@ -1,5 +1,5 @@
 @description('Specifies the name of the key vault.')
-param keyVaultName string = 'robot-factory-api-kv'
+param keyVaultName string
 
 @description('Specifies the Azure location where the key vault should be created.')
 param location string = resourceGroup().location
@@ -18,6 +18,13 @@ param tenantId string = subscription().tenantId
 
 @description('Specifies the object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies. Get it by using Get-AzADUser or Get-AzADServicePrincipal cmdlets.')
 param principalId string
+
+param appIdentityId string
+
+@description('Specifies the SecretUser RoleId')
+var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
+@description('Specifies the SecretOfficer RoleId')
+var kvSecretOfficerRoleId = 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7'
 
 @description('Specifies whether the key vault is a standard vault or a premium vault.')
 @allowed([
@@ -120,11 +127,32 @@ resource StartRobotConstructionQueueSasToken 'Microsoft.KeyVault/vaults/secrets@
   }
 }
 
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+resource ServiceResponse 'Microsoft.KeyVault/vaults/secrets@2021-06-01-preview' = {
+  parent: keyVault
+  name: 'ServiceResponse'
+  properties: {
+    value: 'This is response deployed by bicep template'
+  }
+}
+
+resource secretOfficerRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
   name: guid(subscription().id, keyVaultName, 'KeyVaultSecurityOfficerRoleAssignment')
   scope: keyVault
   properties: {
     principalId: principalId
-    roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/b86a8fe4-44ce-4948-aee5-eccb2c155cd7' // Role definition for Key Vault Contributor role
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', kvSecretOfficerRoleId)
   }
 }
+
+resource secretUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
+  name: guid(appIdentityId, resourceGroup().id, kvSecretUserRoleId)
+  scope: keyVault
+  properties: {
+    principalType: 'ServicePrincipal'
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', kvSecretUserRoleId)
+    principalId: appIdentityId
+  }
+}
+
+
+output kv object = keyVault

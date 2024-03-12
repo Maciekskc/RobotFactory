@@ -1,11 +1,24 @@
+@description('Specifies the name of the web application.')
 param webAppName string = 'rc-api' // Generate unique String for web app name
-param sku string = 'F1' // The SKU of App Service Plan
-param linuxFxVersion string = 'DOTNETCORE|3.0' // The runtime stack of web app
-param location string = resourceGroup().location // Location for all resources
+
+@description('Specifies the SKU of the App Service Plan.')
+param sku string = 'F1'
+
+@description('Specifies the runtime stack of the web application.')
+param linuxFxVersion string = 'DOTNETCORE|8.0'
+
+@description('Specifies the Azure location where the resources should be deployed.')
+param location string = resourceGroup().location
+
 var appServicePlanName = toLower('${webAppName}-appplan')
+
 var webSiteName = toLower('${webAppName}-app')
+
 var webSiteIdentity = toLower('${webAppName}-msi')
-param kvName string = ''
+
+@description('Specifies the name of the key vault.')
+param kvName string
+
 
 resource msi 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
   name: webSiteIdentity
@@ -52,4 +65,4 @@ resource appService 'Microsoft.Web/sites@2020-06-01' = {
   }
 }
 
-output identityId string = msi.properties.clientId
+output identityId string = msi.properties.principalId

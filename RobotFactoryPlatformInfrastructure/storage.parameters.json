@@ -8,9 +8,6 @@
       "storageAccountName": {
         "value": "robotfactorystorage"
       },
-      "finalizeConstructionQueueName": {
-        "value": ""
-      },
       "initializeRobotCreationQueueName": {
         "value": "initialize-robot-creation-queue"
       },

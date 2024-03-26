@@ -17,6 +17,8 @@ var hostingPlanName = appName
 var functionWorkerRuntime = runtime
 param storageAccountName string
 param storageAccountKey string
+param rcApiUrl string
+param initializeRobotCreationQueueName string
 
 
 resource hostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
@@ -45,16 +47,20 @@ resource functionApp 'Microsoft.Web/sites@2021-03-01' = {
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccountKey}'
         }
         {
-          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          name: 'StorageQueueConnection'
           value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccountKey}'
         }
         {
-          name: 'WEBSITE_CONTENTSHARE'
-          value: toLower(functionAppName)
+          name: 'StorageQueueName'
+          value: initializeRobotCreationQueueName
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: functionWorkerRuntime
+        }
+        {
+          name: 'RobotFactoryApiUri'
+          value: rcApiUrl
         }
       ]
       ftpsState: 'FtpsOnly'

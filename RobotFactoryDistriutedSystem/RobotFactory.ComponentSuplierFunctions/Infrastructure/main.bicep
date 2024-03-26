@@ -35,7 +35,9 @@ module function 'function.bicep' = {
   params:{
     appName: appName
     storageAccountName: storageAcount.outputs.storageAccountName
-    storageAccountKey:storageAcount.outputs.storageAccountKey
+    storageAccountKey: storageAcount.outputs.storageAccountKey
+    initializeRobotCreationQueueName: initializeRobotCreationQueueName
+    rcApiUrl: 'toAddLater'
     location:location
   }
 }

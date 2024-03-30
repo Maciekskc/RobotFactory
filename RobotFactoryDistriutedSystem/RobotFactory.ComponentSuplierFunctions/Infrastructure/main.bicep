@@ -9,7 +9,7 @@ var mountBodyQueueName  = 'robot-construction-mount-body-queue'
 var mountHeadQueueName  = 'robot-construction-mount-head-queue'
 var mountLegsQueueName  = 'robot-construction-mount-legs-queue'
 var startConstructionQueueName  ='start-robot-construction-queue'
-var storageAccountName  = 'robotfactorystorage'
+var storageAccountName  = 'robotfactoryqueuestorage'
 var storageAccountType  = 'Standard_LRS'
 
 module storageAcount '../../../RobotFactoryPlatformInfrastructure/storage.bicep' = {

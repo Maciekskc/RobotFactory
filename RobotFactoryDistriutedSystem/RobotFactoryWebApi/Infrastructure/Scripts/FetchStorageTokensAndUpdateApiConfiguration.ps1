@@ -9,7 +9,7 @@ param(
 
    [Parameter(Mandatory=$false)]
    [string]
-   $initializeRobotCreationQueueSasToken,
+   $initializeRobotCreationQueueName,
 
    [Parameter(Mandatory=$false)]
    [string]
@@ -46,13 +46,13 @@ try {
    Write-Error "An error occurred while getting queue endpoint. Connection string might be invalid."
 }
 
-# Get queue sas tokens
-if($PSBoundParameters.ContainsKey('initializeRobotCreationQueueSasToken')){
+# Get queue sas tokens (Requires `z extension add --name storage-preview`)
+if($PSBoundParameters.ContainsKey('initializeRobotCreationQueueName')){
     $expiry = (Get-Date).AddHours(2).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'")  # Set SAS token expiry to 2 hours from now
-    $sasToken = az storage queue generate-sas --name $initializeRobotCreationQueueSasToken --permissions rw --expiry $expiry --connection-string $connectionString --output tsv
+    $sasToken = az storage queue generate-sas --name $initializeRobotCreationQueueName --permissions rw --expiry $expiry --connection-string $connectionString --output tsv
     Write-Output "SAS Token: $sasToken"
 }else{
-    Write-Output "'initializeRobotCreationQueueSasToken' parameter was not provided so sas token will not be generated."
+    Write-Output "'initializeRobotCreationQueueName' parameter was not provided so sas token will not be generated."
 }
 
 

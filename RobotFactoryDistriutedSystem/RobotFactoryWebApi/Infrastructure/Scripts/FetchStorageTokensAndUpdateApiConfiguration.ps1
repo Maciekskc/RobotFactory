@@ -47,17 +47,17 @@ try {
 }
 
 # Get queue sas tokens
-$expiry = (Get-Date).AddHours(2).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'")  # Set SAS token expiry to 2 hours from now
+$expiry = (Get-Date).AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'")  # Set SAS token expiry to 2 hours from now
 
 if($PSBoundParameters.ContainsKey('initializeRobotCreationQueueName')){
-    $initializeRobotCreationQueueSasToken = az storage queue generate-sas --name $initializeRobotCreationQueueName --permissions ru --expiry $expiry --connection-string $connectionString --output tsv
+    $initializeRobotCreationQueueSasToken = az storage queue generate-sas --name $initializeRobotCreationQueueName --permissions ra --expiry $expiry --connection-string $connectionString --output tsv
     Write-Output "$initializeRobotCreationQueueName SAS Token: $initializeRobotCreationQueueSasToken"
 }else{
     Write-Output "'initializeRobotCreationQueueName' parameter was not provided so sas token will not be generated."
 }
 
 if($PSBoundParameters.ContainsKey('startRobotConstructionQueueName')){
-    $startRobotConstructionQueueSasToken = az storage queue generate-sas --name $startRobotConstructionQueueName --permissions ru --expiry $expiry --connection-string $connectionString --output tsv
+    $startRobotConstructionQueueSasToken = az storage queue generate-sas --name $startRobotConstructionQueueName --permissions ra --expiry $expiry --connection-string $connectionString --output tsv
     Write-Output "$startRobotConstructionQueueName SAS Token: $startRobotConstructionQueueSasToken"
 }else{
     Write-Output "'startRobotConstructionQueueName' parameter was not provided so sas token will not be generated."
@@ -70,13 +70,13 @@ if(!$PSBoundParameters.ContainsKey('kvName')){
 
 Write-Output 'Adding tokens to the KV'
 if ($initializeRobotCreationQueueSasToken -ne $null){
-    az keyvault secret set --name 'AzureStorageQueue--InitializeRobotCreationQueueSasToken' --vault-name $kvName --value "$initializeRobotCreationQueueSasToken"
+    az keyvault secret set --name 'AzureStorageQueue--InitializeRobotCreationQueueSasToken' --vault-name $kvName --value "$($initializeRobotCreationQueueSasToken.Replace('&', '"&"'))"
 }else{
     Write-Output "AzureStorageQueue--InitializeRobotCreationQueueSasToken was skipped since the value was not provided"
 }
 
 if ($startRobotConstructionQueueSasToken -ne $null){
-    az keyvault secret set --name 'AzureStorageQueue--StartRobotConstructionQueueSasToken' --vault-name $kvName --value "$startRobotConstructionQueueSasToken"
+    az keyvault secret set --name 'AzureStorageQueue--StartRobotConstructionQueueSasToken' --vault-name $kvName --value "$($startRobotConstructionQueueSasToken.Replace('&', '"&"'))"
 }else{
     Write-Output "AzureStorageQueue--StartRobotConstructionQueueSasToken was skipped since the value was not provided"
 }

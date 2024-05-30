@@ -46,3 +46,7 @@ app.MapPost("/order-robot", () => mediator.Send(new OrderRobotRequest()));
 app.MapPost("/supply-components",  (SupplyComponentsRequest request) => mediator.Send(request));
 
 app.Run();
+
+public partial class Program
+{
+}

@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.ObjectiveC;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
 using RobotFactory.WebApi.Handlers.HealthCheck;
 using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;

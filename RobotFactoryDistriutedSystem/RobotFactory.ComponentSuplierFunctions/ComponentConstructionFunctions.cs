@@ -19,28 +19,28 @@ namespace RobotFactory.ComponentSupplier
             ILogger log)
         {
             log.LogInformation("Initializing robot component creation. Requested component type: {0}, Params [{1}]",
-                requestedComponent.componentType.ToString(),
-                string.Join(',',requestedComponent.parameters));
-            switch (requestedComponent.componentType)
+                requestedComponent.ComponentType.ToString(),
+                string.Join(',',requestedComponent.Parameters));
+            switch (requestedComponent.ComponentType)
             {
                 case RobotComponentType.Head:
                     await Task.Delay(3000);
-                    return await ConstructRobotHead(requestedComponent.parameters);
+                    return await ConstructRobotHead(requestedComponent.Parameters);
                     break;
 
                 case RobotComponentType.Body:
                     await Task.Delay(4000);
-                    return await ConstructRobotBody(requestedComponent.parameters);
+                    return await ConstructRobotBody(requestedComponent.Parameters);
                     break;
 
                 case RobotComponentType.Arm:
                     await Task.Delay(1000);
-                    return await ConstructRobotArm(requestedComponent.parameters);
+                    return await ConstructRobotArm(requestedComponent.Parameters);
                     break;
 
                 case RobotComponentType.Leg:
                     await Task.Delay(800);
-                    return await ConstructRobotLeg(requestedComponent.parameters);
+                    return await ConstructRobotLeg(requestedComponent.Parameters);
                     break;
                 default:
                     throw new InvalidDataException("Unsupported type of component");

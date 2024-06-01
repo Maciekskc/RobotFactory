@@ -7,5 +7,5 @@ namespace RobotFactory.SharedComponents.Dtos.QueueObjects
         public RobotComponentOrderItem[] Items { get; set; }
     }
 
-    public record RobotComponentOrderItem(RobotComponentType componentType, string[] parameters);
+    public record RobotComponentOrderItem(RobotComponentType ComponentType, string[] Parameters);
 }

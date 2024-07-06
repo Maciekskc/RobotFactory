@@ -9,36 +9,34 @@
   'Standard_RAGZRS'
   'Standard_ZRS'
 ])
-param storageAccountType string = 'Standard_LRS'
+param storageAccountType string
 
 @description('The storage account location.')
 param location string = resourceGroup().location
 
 @description('The name of the storage account')
-param storageAccountName string = 'robotfactorystorage'
-
+param storageAccountName string
 
 @description('Initialize robot creation queue name')
 param initializeRobotCreationQueueName string 
 
 @description('Start construction queue name')
-param startConstructionQueueName string 
+param startConstructionQueueName string
 
 @description('Mount body queue name')
-param mountBodyQueueName string 
+param mountBodyQueueName string
 
 @description('Mount head queue name')
-param mountHeadQueueName string 
+param mountHeadQueueName string
 
 @description('Mount arms queue name')
-param mountArmsQueueName string 
+param mountArmsQueueName string
 
 @description('Mount legs queue name')
-param mountLegsQueueName string 
+param mountLegsQueueName string
 
 @description('Finalize construction queue name')
-param finalizeConstructionQueueName string 
-
+param finalizeConstructionQueueName string
 
 resource sa 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageAccountName
@@ -86,5 +84,6 @@ resource finalizeConstructionQueue 'Microsoft.Storage/storageAccounts/queueServi
 }
 
 output storageAccountName string = storageAccountName
+output storageAccountKey string = sa.listKeys().keys[0].value
 output storageAccountId string = sa.id
 

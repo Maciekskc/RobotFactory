@@ -1,3 +1,4 @@
+using Azure.Identity;
 using MediatR;
 using RobotFactory.DataAccessLayer.QueueServices;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
@@ -8,6 +9,13 @@ using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.SupplyComponents;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddAzureKeyVault(
+    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+    new DefaultAzureCredential(new DefaultAzureCredentialOptions
+    {
+        ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
+    }));
 
 // Add services to the container.
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();
@@ -41,6 +49,7 @@ app.MapControllers();
 
 var mediator = app.Services.CreateScope().ServiceProvider.GetService<IMediator>();
 
+app.MapGet("/hello", () => builder.Configuration["ServiceResponse"]);
 app.MapGet("/health-check", () => mediator.Send(new HealthCheckRequest()));
 app.MapPost("/order-robot", () => mediator.Send(new OrderRobotRequest()));
 app.MapPost("/supply-components",  (SupplyComponentsRequest request) => mediator.Send(request));

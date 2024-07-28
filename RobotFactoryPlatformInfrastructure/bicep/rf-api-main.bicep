@@ -19,7 +19,7 @@ var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 var webSiteIdentity = toLower('id-${appName}-${environmentName}-${regionName}-${resourceVersion}')
 
 @description('Specifies the name of the key vault.')
-var keyVaultName = toLower('kv-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var keyVaultName = toLower('kv-${appName}-${environmentName}-${resourceVersion}')
 
 var apiInitialSecrets = [
   { key: 'MongoDatabase--ConnectionString', value: 'default' }
@@ -61,6 +61,7 @@ module vault 'component-custom-templates/kv.bicep' = {
   name: '${deployment().name}-vault'
   scope: resourceGroup()
   params: {
+    keyVaultName: keyVaultName
     kvInitialSecrets: apiInitialSecrets
     vaultAdministratorPrincipalId: vaultAdministratorPrincipalId
     appName: appName

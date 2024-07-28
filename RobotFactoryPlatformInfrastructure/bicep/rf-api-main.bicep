@@ -39,11 +39,11 @@ var apiInitialSecrets = [
 
 var appInitialSettings = [
   {
-    name: 'AzureADManagedIdentityClientId'
+    key: 'AzureADManagedIdentityClientId'
     value: msi.properties.clientId
   }
   {
-    name: 'KeyVaultName'
+    key: 'KeyVaultName'
     value: keyVaultName
   }
 ]
@@ -61,7 +61,7 @@ resource msi 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
 }
 
 module vault 'component-custom-templates/kv.bicep' = {
-  name: '${deployment().name}-api-kv'
+  name: '${deployment().name}-vault'
   scope: resourceGroup()
   params: {
     kvInitialSecrets: apiInitialSecrets
@@ -79,7 +79,7 @@ resource existingKeyVault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existin
 }
 
 resource secretUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: 'KeyVaultSecurityUserRoleAssignment'
+  name:  guid(msi.id, resourceGroup().id, kvSecretUserRoleId)
   scope: existingKeyVault
   properties: {
     principalType: 'ServicePrincipal'
@@ -92,7 +92,7 @@ resource secretUserRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-
 }
 
 module app 'component-custom-templates/web-app.bicep' = {
-  name: '${deployment().name}-api'
+  name: '${deployment().name}-webapp'
   scope: resourceGroup()
   params: {
     appIdentity: appIdentity

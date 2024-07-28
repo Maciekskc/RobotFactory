@@ -30,7 +30,6 @@ param appIdentity object = {
   type: 'SystemAssigned'
 }
 
-
 @description('Specifieds initial appsettings of webpp')
 param appSettings array
 

@@ -29,4 +29,4 @@ if ($loginCheck) {
 $resourceGroupName = "rg-$appName-$environment-$appVersion"
 $rgCreationResult = az group create --name $resourceGroupName --location $location
 
-az deployment group what-if --resource-group $resourceGroupName --template-file ..\bicep\rf-infrastructure-main.bicep --parameters environmentName=$environment appName=$appName regionName=$location resourceVersion=$appVersion
+az deployment group create --resource-group $resourceGroupName --name fullinfrastructuredeployment --template-file ..\bicep\rf-infrastructure-main.bicep --parameters environmentName=$environment appName=$appName regionName=$location resourceVersion=$appVersion vaultAdministratorPrincipalId=$vaultAdministratorPrincipalId

@@ -20,36 +20,10 @@ param  resourceVersion string
   'java'
 ])
 param runtime string = 'dotnet'
-
-var finalizeConstructionQueueName  = 'finalize-robot-construction-queue'
-var initializeRobotCreationQueueName  = 'initialize-robot-creation-queue'
-var mountArmsQueueName  = 'robot-construction-mount-arms-queue'
-var mountBodyQueueName  = 'robot-construction-mount-body-queue'
-var mountHeadQueueName  = 'robot-construction-mount-head-queue'
-var mountLegsQueueName  = 'robot-construction-mount-legs-queue'
-var startConstructionQueueName  = 'start-robot-construction-queue'
-var storageAccountType  = 'Standard_LRS'
-
-module storageAcount 'component-custom-templates/storage.bicep' = {
-  scope: resourceGroup()
-  name: '${deployment().name}-sa'
-  params: {
-    appName: appName
-    environmentName: environmentName
-    resourceVersion: resourceVersion
-    regionName: regionName
-    queueNames: [
-      finalizeConstructionQueueName
-      initializeRobotCreationQueueName
-      mountArmsQueueName
-      mountBodyQueueName
-      mountHeadQueueName
-      mountLegsQueueName
-      startConstructionQueueName
-    ]
-    storageAccountType: storageAccountType
-  }
-}
+param initializeRobotCreationQueueName  string = 'initialize-robot-creation-queue'
+param storageAccountName string 
+@secure()
+param storageAccountKey string 
 
 module function 'component-custom-templates/function.bicep' = {
   name: '${deployment().name}-function'
@@ -62,11 +36,11 @@ module function 'component-custom-templates/function.bicep' = {
     appSettings:[
       {
         name: 'AzureWebJobsStorage'
-        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAcount.outputs.storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAcount.outputs.storageAccountKey}'
+        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccountKey}'
       }
       {
         name: 'StorageQueueConnection'
-        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAcount.outputs.storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAcount.outputs.storageAccountKey}'
+        value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccountName};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccountKey}'
       }
       {
         name: 'StorageQueueName'

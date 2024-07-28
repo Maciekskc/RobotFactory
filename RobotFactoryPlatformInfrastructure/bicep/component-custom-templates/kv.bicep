@@ -63,7 +63,7 @@ resource secrets 'Microsoft.KeyVault/vaults/secrets@2021-06-01-preview' = [for s
 }]
 
 resource secretOfficerRoleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: 'KeyVaultSecurityOfficerRoleAssignment'
+  name: guid(subscription().id, keyVaultName, kvSecretOfficerRoleId)
   scope: keyVault
   properties: {
     principalId: vaultAdministratorPrincipalId

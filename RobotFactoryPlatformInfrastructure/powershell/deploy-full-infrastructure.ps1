@@ -17,7 +17,11 @@ param(
 
    [Parameter(Mandatory=$false)]
    [string]
-   $location="westeurope"
+   $location="westeurope",
+
+   [Parameter(Mandatory=$true)]
+   [string]
+   $subscription
 )
 
 # Check if user is logged in to Azure
@@ -26,7 +30,5 @@ if ($loginCheck) {
    Write-Error "You are not logged in to Azure. Please log in and try again."
    exit 1
 }
-$resourceGroupName = "rg-$appName-$environment-$appVersion"
-$rgCreationResult = az group create --name $resourceGroupName --location $location
 
-az deployment group create --resource-group $resourceGroupName --name fullinfrastructuredeployment --template-file ..\bicep\rf-infrastructure-main.bicep --parameters environmentName=$environment appName=$appName regionName=$location resourceVersion=$appVersion vaultAdministratorPrincipalId=$vaultAdministratorPrincipalId
+az deployment sub create --subscription $subscription --location $location --name fullinfrastructuredeployment --template-file ..\bicep\rf-infrastructure-main.bicep --parameters environmentName=$environment appName=$appName location=$location resourceVersion=$appVersion vaultAdministratorPrincipalId=$vaultAdministratorPrincipalId

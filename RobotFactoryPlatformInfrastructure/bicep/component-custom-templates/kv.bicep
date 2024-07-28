@@ -7,14 +7,11 @@ param appName string = 'rf'
 @description('Environment Name for resource to based their name on')
 param  environmentName string = 'dev'
 
-@description('Region Name for resource to based their name on')
-param regionName string = location
-
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string = '01'
 
 @description('Specifies the name of the key vault.')
-var keyVaultName = toLower('kv-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var keyVaultName = toLower('kv-${appName}-${environmentName}-${resourceVersion}')
 
 @description('Specifies the Azure Active Directory tenant ID that should be used for authenticating requests to the key vault. Get it by using Get-AzSubscription cmdlet.')
 param tenantId string = subscription().tenantId

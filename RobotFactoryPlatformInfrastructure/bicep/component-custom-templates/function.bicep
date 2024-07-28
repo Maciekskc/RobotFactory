@@ -7,14 +7,11 @@ param appName string = 'rf'
 @description('Environment Name for resource to based their name on')
 param  environmentName string = 'dev'
 
-@description('Region Name for resource to based their name on')
-param regionName string = location
-
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string = '01'
 
-var functionAppName = toLower('fna-${appName}-${environmentName}-${regionName}-${resourceVersion}')
-var hostingPlanName = toLower('fnaplan-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var functionAppName = toLower('fna-${appName}-${environmentName}-${resourceVersion}')
+var hostingPlanName = toLower('fnaplan-${appName}-${environmentName}-${resourceVersion}')
 
 @description('Appsettings given as array of ovjet key,value')
 param appSettings array

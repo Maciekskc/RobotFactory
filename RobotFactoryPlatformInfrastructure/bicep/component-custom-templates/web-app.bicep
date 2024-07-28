@@ -7,17 +7,14 @@ param appName string = 'rf'
 @description('Environment Name for resource to based their name on')
 param  environmentName string = 'dev'
 
-@description('Region Name for resource to based their name on')
-param regionName string = location
-
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string = '01'
 
 @description('Specifies the name of the webapp plan')
-var appServicePlanName = toLower('appplan-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var appServicePlanName = toLower('appplan-${appName}-${environmentName}-${resourceVersion}')
 
 @description('Specifies the name of the webapp')
-var webSiteName = toLower('app-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var webSiteName = toLower('app-${appName}-${environmentName}-${resourceVersion}')
 
 @description('Specifies the SKU of the App Service Plan.')
 param sku string = 'F1'

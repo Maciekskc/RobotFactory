@@ -1,14 +1,8 @@
-@description('Specifies the Azure location where the resources should be deployed.')
-param location string = resourceGroup().location
-
 @description('Application Name for resource to based their name on')
 param appName string
 
 @description('Environment Name for resource to based their name on')
 param  environmentName string
-
-@description('Region Name for resource to based their name on')
-param regionName string = location
 
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string
@@ -32,7 +26,6 @@ module function 'component-custom-templates/function.bicep' = {
     appName: appName
     environmentName: environmentName
     resourceVersion: resourceVersion
-    regionName: regionName
     appSettings:[
       {
         name: 'AzureWebJobsStorage'

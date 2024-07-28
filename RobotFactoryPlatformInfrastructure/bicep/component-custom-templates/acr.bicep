@@ -7,14 +7,11 @@ param appName string = 'rf'
 @description('Environment Name for resource to based their name on')
 param  environmentName string = 'dev'
 
-@description('Region Name for resource to based their name on')
-param regionName string = location
-
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string = '01'
 
 @description('Provide a globally unique name of your Azure Container Registry')
-var acrName = 'cr${appName}${environmentName}${regionName}${resourceVersion}'
+var acrName = 'cr${appName}${environmentName}${resourceVersion}'
 
 @description('Provide a tier of your Azure Container Registry.')
 param acrSku string = 'Basic'

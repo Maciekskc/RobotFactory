@@ -7,14 +7,8 @@ param appName string = 'rf'
 @description('Environment Name for resource to based their name on')
 param  environmentName string = 'dev'
 
-@description('Region Name for resource to based their name on')
-param regionName string = location
-
-@description('Environment Name for resource to based their name on')
-param  resourceVersion string = '01'
-
 @description('Cosmos DB account name, max length 44 characters, lowercase')
-var accountName = toLower('cosmos-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var accountName = toLower('mongodb-${appName}-${environmentName}')
 
 @description('The primary replica region for the Cosmos DB account.')
 param primaryRegion string = resourceGroup().location

@@ -1,8 +1,5 @@
 param vaultAdministratorPrincipalId string = ''
 
-@description('Specifies the Azure location where the resources should be deployed.')
-param location string = resourceGroup().location
-
 @description('Application Name for resource to based their name on')
 param appName string
 
@@ -10,7 +7,7 @@ param appName string
 param  environmentName string
 
 @description('Region Name for resource to based their name on')
-param regionName string = location
+param regionName string = resourceGroup().location
 
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string
@@ -69,7 +66,6 @@ module vault 'component-custom-templates/kv.bicep' = {
     appName: appName
     environmentName: environmentName
     resourceVersion: resourceVersion
-    regionName: regionName
   }
 }
 
@@ -100,6 +96,5 @@ module app 'component-custom-templates/web-app.bicep' = {
     appName: appName
     environmentName: environmentName
     resourceVersion: resourceVersion
-    regionName: regionName
   }
 }

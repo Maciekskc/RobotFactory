@@ -7,9 +7,6 @@ param appName string = 'rf'
 @description('Environment Name for resource to based their name on')
 param  environmentName string = 'dev'
 
-@description('Region Name for resource to based their name on')
-param regionName string = location
-
 @description('Environment Name for resource to based their name on')
 param  resourceVersion string = '01'
 
@@ -27,7 +24,7 @@ param  resourceVersion string = '01'
 param storageAccountType string
 
 @description('Specifies the name of the webapp plan')
-var storageAccountName = toLower('sa${appName}${environmentName}${regionName}${resourceVersion}')
+var storageAccountName = toLower('sa${appName}${environmentName}${location}${resourceVersion}')
 
 @description('List of queues to create')
 param queueNames array

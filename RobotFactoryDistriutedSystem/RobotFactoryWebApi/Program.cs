@@ -10,13 +10,6 @@ using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.SupplyComponents;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddAzureKeyVault(
-    new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
-    new DefaultAzureCredential(new DefaultAzureCredentialOptions
-    {
-        ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
-    }));
-
 // Add services to the container.
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();
 builder.Services.AddScoped<IRobotComponentsRepository, RobotComponentsRepository>();
@@ -39,6 +32,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{builder.Configuration["KeyVaultName"]}.vault.azure.net/"),
+        new DefaultAzureCredential(new DefaultAzureCredentialOptions
+        {
+            ManagedIdentityClientId = builder.Configuration["AzureADManagedIdentityClientId"]
+        }));
 }
 
 app.UseHttpsRedirection();

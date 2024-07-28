@@ -23,9 +23,4 @@
     <ProjectReference Include="..\RobotFactory.DataAccessLayer\RobotFactory.DataAccessLayer.csproj" />
     <ProjectReference Include="..\RobotFactorySharedComponents\RobotFactory.SharedComponents.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-
 </Project>

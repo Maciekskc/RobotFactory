@@ -18,6 +18,7 @@ param initializeRobotCreationQueueName  string = 'initialize-robot-creation-queu
 param storageAccountName string 
 @secure()
 param storageAccountKey string 
+param controlerApiUrl string
 
 module function 'component-custom-templates/function.bicep' = {
   name: '${deployment().name}-function'
@@ -45,7 +46,7 @@ module function 'component-custom-templates/function.bicep' = {
       }
       {
         name: 'RobotFactoryApiUri'
-        value: 'TODO'
+        value: controlerApiUrl
       }
     ]
   }

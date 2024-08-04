@@ -26,9 +26,24 @@ var mountLegsQueueName = 'robot-construction-mount-legs-queue'
 var startConstructionQueueName = 'start-robot-construction-queue'
 var storageAccountType = 'Standard_LRS'
 
+var databaseName =  'RobotFactory'
+
 var sharedResourceGroupName = toLower('rg-${appName}shared-${environmentName}-${resourceVersion}')
 var componentSuplierResourceGroupName = toLower('rg-${appName}supplier-${environmentName}-${resourceVersion}')
 var controllerResourceGroupName = toLower('rg-${appName}controller-${environmentName}-${resourceVersion}')
+
+var apiInitialSecrets = [
+  { key: 'MongoDatabase--ConnectionString', value: db.outputs.connectionString }
+  { key: 'MongoDatabase--DatabaseName', value: databaseName }
+  { key: 'MongoDatabase--RobotCollectionName', value: 'Robots' }
+  { key: 'MongoDatabase--RobotComponentCollectionName', value: 'RobotComponents' }
+  { key: 'AzureStorageQueue--QueueBaseUri', value: storageAcount.outputs.storageAccountUri }
+  { key: 'AzureStorageQueue--InitializeRobotCreationQueueName', value: initializeRobotCreationQueueName }
+  // { key: 'AzureStorageQueue--InitializeRobotCreationQueueSasToken', value: 'default' }
+  { key: 'AzureStorageQueue--StartRobotConstructionQueueName', value: startConstructionQueueName }
+  // { key: 'AzureStorageQueue--StartRobotConstructionQueueSasToken', value: 'default' }
+  { key: 'ServiceResponse', value: 'This is response deployed by bicep template' }
+]
 
 resource sharedResourceGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   name: sharedResourceGroupName
@@ -41,6 +56,7 @@ module db 'component-custom-templates/cosmos-with-mongodb.bicep' = {
   params: {
     appName: appName
     environmentName: environmentName
+    databaseName: databaseName
   }
 }
 
@@ -77,6 +93,7 @@ module api 'rf-api-main.bicep' = {
     resourceVersion: resourceVersion
     regionName: regionName
     vaultAdministratorPrincipalId: vaultAdministratorPrincipalId
+    apiInitialSecrets: apiInitialSecrets
   }
 }
 
@@ -95,5 +112,6 @@ module cs 'rf-cs-main.bicep' = {
     initializeRobotCreationQueueName: initializeRobotCreationQueueName
     storageAccountName: storageAcount.outputs.storageAccountName
     storageAccountKey: storageAcount.outputs.storageAccountKey
+    controlerApiUrl: api.outputs.appUri
   }
 }

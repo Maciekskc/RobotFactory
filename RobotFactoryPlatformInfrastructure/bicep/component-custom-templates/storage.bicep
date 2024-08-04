@@ -50,6 +50,7 @@ resource queues 'Microsoft.Storage/storageAccounts/queueServices/queues@2023-01-
   properties:{}
 }]
 
+output storageAccountUri string = sa.properties.primaryEndpoints.queue
 output storageAccountName string = storageAccountName
 output storageAccountKey string = sa.listKeys().keys[0].value
 output storageAccountId string = sa.id

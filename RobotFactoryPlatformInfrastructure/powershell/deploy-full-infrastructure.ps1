@@ -32,3 +32,4 @@ if ($loginCheck) {
 }
 
 az deployment sub create --subscription $subscription --location $location --name fullinfrastructuredeployment --template-file ..\bicep\rf-infrastructure-main.bicep --parameters environmentName=$environment appName=$appName location=$location resourceVersion=$appVersion vaultAdministratorPrincipalId=$vaultAdministratorPrincipalId
+& .\FetchStorageTokensAndUpdateApiConfiguration.ps1

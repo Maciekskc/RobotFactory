@@ -1,7 +1,7 @@
 param(
    [Parameter(Mandatory=$true)]
    [string]
-   $resourceGroup,
+   $storageAccountResourceGroup,
 
    [Parameter(Mandatory=$true)]
    [string]
@@ -17,6 +17,10 @@ param(
 
    [Parameter(Mandatory=$false)]
    [string]
+   $kvResourceGroup,
+   
+   [Parameter(Mandatory=$false)]
+   [string]
    $kvName
 )
 
@@ -28,7 +32,7 @@ if ($loginCheck) {
 }
 
 # Get connection string
-$connectionString = az storage account show-connection-string --resource-group $resourceGroup --name $storageAccountName --key 'key2' --output tsv
+$connectionString = az storage account show-connection-string --resource-group $storageAccountResourceGroup --name $storageAccountName --key 'key2' --output tsv
 
 # Get queue Endpoint
 try {
@@ -47,18 +51,18 @@ try {
 }
 
 # Get queue sas tokens
-$expiry = (Get-Date).AddDays(1).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'")  # Set SAS token expiry to 2 hours from now
+$expiry = (Get-Date).AddMonths(1).ToString("yyyy-MM-dd'T'HH:mm:ss'Z'") 
 
 if($PSBoundParameters.ContainsKey('initializeRobotCreationQueueName')){
     $initializeRobotCreationQueueSasToken = az storage queue generate-sas --name $initializeRobotCreationQueueName --permissions ra --expiry $expiry --connection-string $connectionString --output tsv
-    Write-Output "$initializeRobotCreationQueueName SAS Token: $initializeRobotCreationQueueSasToken"
+    Write-Output "$initializeRobotCreationQueueName SAS Token generated"
 }else{
     Write-Output "'initializeRobotCreationQueueName' parameter was not provided so sas token will not be generated."
 }
 
 if($PSBoundParameters.ContainsKey('startRobotConstructionQueueName')){
     $startRobotConstructionQueueSasToken = az storage queue generate-sas --name $startRobotConstructionQueueName --permissions ra --expiry $expiry --connection-string $connectionString --output tsv
-    Write-Output "$startRobotConstructionQueueName SAS Token: $startRobotConstructionQueueSasToken"
+    Write-Output "$startRobotConstructionQueueName SAS Token generated"
 }else{
     Write-Output "'startRobotConstructionQueueName' parameter was not provided so sas token will not be generated."
 }

@@ -81,3 +81,5 @@ resource database 'Microsoft.DocumentDB/databaseAccounts/mongodbDatabases@2022-0
     }
   }
 }
+
+output connectionString string = listConnectionStrings(account.name, '2022-05-15').connectionStrings[0].connectionString

@@ -21,18 +21,7 @@ var webSiteIdentity = toLower('id-${appName}-${environmentName}-${regionName}-${
 @description('Specifies the name of the key vault.')
 var keyVaultName = toLower('kv-${appName}-${environmentName}-${resourceVersion}')
 
-var apiInitialSecrets = [
-  { key: 'MongoDatabase--ConnectionString', value: 'default' }
-  { key: 'MongoDatabase--DatabaseName', value: 'default' }
-  { key: 'MongoDatabase--RobotCollectionName', value: 'default' }
-  { key: 'MongoDatabase--RobotComponentCollectionName', value: 'default' }
-  { key: 'AzureStorageQueue--QueueBaseUri', value: 'default' }
-  { key: 'AzureStorageQueue--InitializeRobotCreationQueueName', value: 'default' }
-  { key: 'AzureStorageQueue--InitializeRobotCreationQueueSasToken', value: 'default' }
-  { key: 'AzureStorageQueue--StartRobotConstructionQueueName', value: 'default' }
-  { key: 'AzureStorageQueue--StartRobotConstructionQueueSasToken', value: 'default' }
-  { key: 'ServiceResponse', value: 'This is response deployed by bicep template' }
-]
+param apiInitialSecrets array = []
 
 var appInitialSettings = [
   {
@@ -99,3 +88,5 @@ module app 'component-custom-templates/web-app.bicep' = {
     resourceVersion: resourceVersion
   }
 }
+
+output appUri string = 'https://${app.outputs.appHostName}'

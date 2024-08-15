@@ -79,6 +79,17 @@ module storageAcount 'component-custom-templates/storage.bicep' = {
   }
 }
 
+module appsServicePlan 'component-custom-templates/app-plan.bicep' = {
+  scope: sharedResourceGroup
+  name: '${deployment().name}-appsPlan'
+  params:{
+    appName: appName
+    environmentName: environmentName
+    resourceVersion: resourceVersion
+    sku: 'F1'
+  }
+}
+
 resource controllerResourceGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   name: controllerResourceGroupName
   location: location
@@ -89,6 +100,7 @@ module api 'rf-api-main.bicep' = {
   scope: controllerResourceGroup
   params: {
     appName: appName
+    appServicePlanName: appsServicePlan.outputs.appServicePlanName
     environmentName: environmentName
     resourceVersion: resourceVersion
     regionName: regionName

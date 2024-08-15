@@ -11,13 +11,10 @@ param  environmentName string = 'dev'
 param  resourceVersion string = '01'
 
 @description('Specifies the name of the webapp plan')
-var appServicePlanName = toLower('appplan-${appName}-${environmentName}-${resourceVersion}')
+param appServicePlanName string
 
 @description('Specifies the name of the webapp')
 var webSiteName = toLower('app-${appName}-${environmentName}-${resourceVersion}')
-
-@description('Specifies the SKU of the App Service Plan.')
-param sku string = 'F1'
 
 @description('Specifies the runtime stack of the web application.')
 param linuxFxVersion string = 'DOTNETCORE|8.0'
@@ -30,16 +27,8 @@ param appIdentity object = {
 @description('Specifieds initial appsettings of webpp')
 param appSettings array
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
+resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' existing =  {
   name: appServicePlanName
-  location: location
-  properties: {
-    reserved: true
-  }
-  sku: {
-    name: sku
-  }
-  kind: 'linux'
 }
 
 resource appService 'Microsoft.Web/sites@2020-06-01' = {

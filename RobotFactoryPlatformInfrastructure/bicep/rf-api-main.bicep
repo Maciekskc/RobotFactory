@@ -10,7 +10,10 @@ param  environmentName string
 param regionName string = resourceGroup().location
 
 @description('Environment Name for resource to based their name on')
-param  resourceVersion string
+param resourceVersion string
+
+@description('AppPlan Name that web app will be assigned too')
+param appServicePlanName string
 
 @description('Specifies the SecretUser RoleId')
 var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
@@ -82,6 +85,7 @@ module app 'component-custom-templates/web-app.bicep' = {
   scope: resourceGroup()
   params: {
     appIdentity: appIdentity
+    appServicePlanName: appServicePlanName
     appSettings: appInitialSettings
     appName: appName
     environmentName: environmentName

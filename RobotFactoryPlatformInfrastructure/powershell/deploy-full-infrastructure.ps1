@@ -3,7 +3,7 @@ param(
    [string]
    $appName="rf",
 
-   [Parameter(Mandatory=$true)]
+   [Parameter(Mandatory=$false)]
    [string]
    $vaultAdministratorPrincipalId="64b79990-5c8f-4561-b190-804d4910e8d7",
 

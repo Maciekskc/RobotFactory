@@ -2,6 +2,7 @@ param vaultAdministratorPrincipalId string = ''
 
 @description('Application Name for resource to based their name on')
 param appName string
+var controllerAppName = 'rfcontroller'
 
 @description('Environment Name for resource to based their name on')
 param  environmentName string
@@ -15,11 +16,14 @@ param resourceVersion string
 @description('AppPlan Name that web app will be assigned too')
 param appServicePlanName string
 
+@description('Specifies the resource group name of the webapp plan')
+param appServicePlanResourceGroupName string
+
 @description('Specifies the SecretUser RoleId')
 var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 
 @description('Specifies the name of the webapp managed identity')
-var webSiteIdentity = toLower('id-${appName}-${environmentName}-${regionName}-${resourceVersion}')
+var webSiteIdentity = toLower('id-${controllerAppName}-${environmentName}-${regionName}-${resourceVersion}')
 
 @description('Specifies the name of the key vault.')
 var keyVaultName = toLower('kv-${appName}-${environmentName}-${resourceVersion}')
@@ -56,7 +60,7 @@ module vault 'component-custom-templates/kv.bicep' = {
     keyVaultName: keyVaultName
     kvInitialSecrets: apiInitialSecrets
     vaultAdministratorPrincipalId: vaultAdministratorPrincipalId
-    appName: appName
+    appName: controllerAppName
     environmentName: environmentName
     resourceVersion: resourceVersion
   }
@@ -85,9 +89,10 @@ module app 'component-custom-templates/web-app.bicep' = {
   scope: resourceGroup()
   params: {
     appIdentity: appIdentity
+    appServicePlanResourceGroupName: appServicePlanResourceGroupName
     appServicePlanName: appServicePlanName
     appSettings: appInitialSettings
-    appName: appName
+    appName: controllerAppName
     environmentName: environmentName
     resourceVersion: resourceVersion
   }

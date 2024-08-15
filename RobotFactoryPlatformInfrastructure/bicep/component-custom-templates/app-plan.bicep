@@ -18,6 +18,7 @@ param sku string = 'F1'
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   name: appServicePlanName
+  location: location
   properties: {
     reserved: true
   }
@@ -28,4 +29,4 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
 }
 
 output appServicePlanName string = appServicePlan.name
-output appServicePlanId string = appServicePlan.id
+output appServicePlanResourceGroupName string = resourceGroup().name

@@ -13,6 +13,9 @@ param  resourceVersion string = '01'
 @description('Specifies the name of the webapp plan')
 param appServicePlanName string
 
+@description('Specifies the resource group name of the webapp plan')
+param appServicePlanResourceGroupName string
+
 @description('Specifies the name of the webapp')
 var webSiteName = toLower('app-${appName}-${environmentName}-${resourceVersion}')
 
@@ -29,6 +32,7 @@ param appSettings array
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' existing =  {
   name: appServicePlanName
+  scope: resourceGroup(appServicePlanResourceGroupName)
 }
 
 resource appService 'Microsoft.Web/sites@2020-06-01' = {

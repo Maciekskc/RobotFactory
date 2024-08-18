@@ -8,7 +8,7 @@ param appName string = 'rf'
 param  environmentName string = 'dev'
 
 @description('Environment Name for resource to based their name on')
-param  resourceVersion string = '01'
+param  resourceVersion string = '001'
 
 @description('Specifies the name of the key vault.')
 param keyVaultName string = toLower('kv-${appName}-${environmentName}-${resourceVersion}')

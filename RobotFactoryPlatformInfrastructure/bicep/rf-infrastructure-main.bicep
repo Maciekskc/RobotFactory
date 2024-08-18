@@ -40,13 +40,27 @@ var apiInitialSecrets = [
   { key: 'MongoDatabase--RobotComponentCollectionName', value: 'RobotComponents' }
   { key: 'AzureStorageQueue--QueueBaseUri', value: storageAcount.outputs.storageAccountUri }
   { key: 'AzureStorageQueue--InitializeRobotCreationQueueName', value: initializeRobotCreationQueueName }
-  // { key: 'AzureStorageQueue--InitializeRobotCreationQueueSasToken', value: 'default' }
+  { key: 'AzureStorageQueue--InitializeRobotCreationQueueSasToken', value: 'default' }
   { key: 'AzureStorageQueue--StartRobotConstructionQueueName', value: startConstructionQueueName }
-  // { key: 'AzureStorageQueue--StartRobotConstructionQueueSasToken', value: 'default' }
+  { key: 'AzureStorageQueue--StartRobotConstructionQueueSasToken', value: 'default' }
   { key: 'ServiceResponse', value: 'This is response deployed by bicep template' }
 ]
 
 var organizersInitialSettings = [
+  { key: 'MongoDatabase__ConnectionString', value: db.outputs.connectionString }
+  { key: 'MongoDatabase__DatabaseName', value: databaseName }
+  { key: 'MongoDatabase__RobotCollectionName', value: 'Robots' }
+  { key: 'MongoDatabase__RobotComponentCollectionName', value: 'RobotComponents' }
+  { key: 'QueueServiceConfig__QueueServiceUri', value: storageAcount.outputs.storageAccountUri }
+  { key: 'QueueServiceConfig__StartConstructionQueueName', value: 'start-robot-construction-queue' }
+  { key: 'QueueServiceConfig__StartConstructionQueueSasToken', value: '#secret' }
+  { key: 'QueueServiceConfig__MountBodyQueueName', value: 'robot-construction-mount-body-queue' }
+  { key: 'QueueServiceConfig__MountBodyQueueSasToken', value: '#secret' }
+  { key: 'QueueServiceConfig__FinalizeConstructionQueueName', value: 'finalize-robot-construction-queue' }
+  { key: 'QueueServiceConfig__FinalizeConstructionQueueSasToken', value: '#secret' }
+]
+
+var assemblerInitialSettings = [
   { key: 'MongoDatabase__ConnectionString', value: db.outputs.connectionString }
   { key: 'MongoDatabase__DatabaseName', value: databaseName }
   { key: 'MongoDatabase__RobotCollectionName', value: 'Robots' }
@@ -60,20 +74,6 @@ var organizersInitialSettings = [
   { key: 'QueueServiceConfig__MountArmsQueueSasToken', value: '#secret' }
   { key: 'QueueServiceConfig__MountLegsQueueName', value: 'robot-construction-mount-legs-queue' }
   { key: 'QueueServiceConfig__MountLegsQueueSasToken', value: '#secret' }
-  { key: 'QueueServiceConfig__FinalizeConstructionQueueName', value: 'finalize-robot-construction-queue' }
-  { key: 'QueueServiceConfig__FinalizeConstructionQueueSasToken', value: '#secret' }
-]
-
-var assemblerInitialSettings = [
-  { key: 'MongoDatabase__ConnectionString', value: db.outputs.connectionString }
-  { key: 'MongoDatabase__DatabaseName', value: databaseName }
-  { key: 'MongoDatabase__RobotCollectionName', value: 'Robots' }
-  { key: 'MongoDatabase__RobotComponentCollectionName', value: 'RobotComponents' }
-  { key: 'QueueServiceConfig__QueueServiceUri', value: storageAcount.outputs.storageAccountUri }
-  { key: 'QueueServiceConfig__StartConstructionQueueName', value: 'start-robot-construction-queue' }
-  { key: 'QueueServiceConfig__StartConstructionQueueSasToken', value: '#secret' }
-  { key: 'QueueServiceConfig__MountBodyQueueName', value: 'robot-construction-mount-body-queue' }
-  { key: 'QueueServiceConfig__MountBodyQueueSasToken', value: '#secret' }
   { key: 'QueueServiceConfig__FinalizeConstructionQueueName', value: 'finalize-robot-construction-queue' }
   { key: 'QueueServiceConfig__FinalizeConstructionQueueSasToken', value: '#secret' }
 ]
@@ -132,7 +132,6 @@ module api 'rf-api-main.bicep' = {
   name: '${deployment().name}-factoryapi'
   scope: controllerResourceGroup
   params: {
-    appName: appName
     appServicePlanResourceGroupName: appsServicePlan.outputs.appServicePlanResourceGroupName
     appServicePlanName: appsServicePlan.outputs.appServicePlanName
     environmentName: environmentName

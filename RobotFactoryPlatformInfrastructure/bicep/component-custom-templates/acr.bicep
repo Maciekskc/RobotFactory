@@ -8,7 +8,7 @@ param appName string = 'rf'
 param  environmentName string = 'dev'
 
 @description('Environment Name for resource to based their name on')
-param  resourceVersion string = '01'
+param  resourceVersion string = '001'
 
 @description('Provide a globally unique name of your Azure Container Registry')
 var acrName = 'cr${appName}${environmentName}${resourceVersion}'

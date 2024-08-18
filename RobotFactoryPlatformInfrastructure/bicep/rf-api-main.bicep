@@ -1,7 +1,5 @@
 param vaultAdministratorPrincipalId string = ''
 
-@description('Application Name for resource to based their name on')
-param appName string
 var controllerAppName = 'rfcontroller'
 
 @description('Environment Name for resource to based their name on')
@@ -26,7 +24,7 @@ var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 var webSiteIdentity = toLower('id-${controllerAppName}-${environmentName}-${regionName}-${resourceVersion}')
 
 @description('Specifies the name of the key vault.')
-var keyVaultName = toLower('kv-${appName}-${environmentName}-${resourceVersion}')
+var keyVaultName = toLower('kv-${controllerAppName}-${environmentName}-${resourceVersion}')
 
 param apiInitialSecrets array = []
 
@@ -57,7 +55,6 @@ module vault 'component-custom-templates/kv.bicep' = {
   name: '${deployment().name}-vault'
   scope: resourceGroup()
   params: {
-    keyVaultName: keyVaultName
     kvInitialSecrets: apiInitialSecrets
     vaultAdministratorPrincipalId: vaultAdministratorPrincipalId
     appName: controllerAppName

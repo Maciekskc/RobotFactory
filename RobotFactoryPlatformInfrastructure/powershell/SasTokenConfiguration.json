@@ -1,6 +1,6 @@
 {
   "StorageAccountResourceGroup": "rg-rfshared-dev-001",
-  "StorageAccountName": "sarfdevwesteurope01",
+  "StorageAccountName": "sarfdevwesteurope001",
   "QueueNames": [
     "initialize-robot-creation-queue",
     "start-robot-construction-queue",
@@ -26,7 +26,7 @@
   },
   "WorkerOrganizersSettings": {
     "ResourceGroupName": "rg-rfworkers-dev-001",
-    "AppName": "app-rforganizer-dev-001",
+    "AppName": "aca-rforganizer-dev-001",
     "ConfigsToSet": [
       {
         "SecretName": "QueueServiceConfig__StartConstructionQueueSasToken",
@@ -44,7 +44,7 @@
   },
   "WorkerAssemblersSettings": {
     "ResourceGroupName": "rg-rfworkers-dev-001",
-    "AppName": "app-rfassembler-dev-001",
+    "AppName": "aca-rfassembler-dev-001",
     "ConfigsToSet": [
       {
         "SecretName": "QueueServiceConfig__MountBodyQueueSasToken",

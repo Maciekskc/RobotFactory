@@ -65,11 +65,11 @@ function Set-AppSettings {
         $settingsArray += "$key=$value"
     }
 
-    # Set the app settings using Azure CLI
-    az webapp config appsettings set `
+    # Update the container app's environment variables using Azure CLI
+    az containerapp update `
         --resource-group $resourceGroupName `
         --name $appName `
-        --settings $settingsArray `
+        --set-env-vars $settingsArray `
         --output none
 }
 

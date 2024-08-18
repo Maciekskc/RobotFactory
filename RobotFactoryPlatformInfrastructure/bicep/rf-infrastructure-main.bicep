@@ -132,8 +132,6 @@ module api 'rf-api-main.bicep' = {
   name: '${deployment().name}-factoryapi'
   scope: controllerResourceGroup
   params: {
-    appServicePlanResourceGroupName: appsServicePlan.outputs.appServicePlanResourceGroupName
-    appServicePlanName: appsServicePlan.outputs.appServicePlanName
     environmentName: environmentName
     resourceVersion: resourceVersion
     regionName: regionName
@@ -170,12 +168,9 @@ module workers 'rf-workers-main.bicep' = {
   name: '${deployment().name}-workers'
   scope: workersSuplierResourceGroup
   params: {
-    appName: appName
     environmentName: environmentName
     resourceVersion: resourceVersion
     organizersInitialSettings: organizersInitialSettings
     assemblersInitialSettings: assemblerInitialSettings
-    appServicePlanName: appsServicePlan.outputs.appServicePlanName
-    appServicePlanResourceGroupName: appsServicePlan.outputs.appServicePlanResourceGroupName
   }
 }

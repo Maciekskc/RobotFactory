@@ -11,12 +11,6 @@ param regionName string = resourceGroup().location
 @description('Environment Name for resource to based their name on')
 param resourceVersion string
 
-@description('AppPlan Name that web app will be assigned too')
-param appServicePlanName string
-
-@description('Specifies the resource group name of the webapp plan')
-param appServicePlanResourceGroupName string
-
 @description('Specifies the SecretUser RoleId')
 var kvSecretUserRoleId = '4633458b-17de-408a-b874-0445c86b69e6'
 
@@ -43,6 +37,17 @@ var appIdentity  = {
   type: 'UserAssigned'
   userAssignedIdentities: {
     '${msi.id}': {}
+  }
+}
+
+module appsServicePlan 'component-custom-templates/app-plan.bicep' = {
+  scope: resourceGroup()
+  name: '${deployment().name}-appsPlan'
+  params:{
+    appName: controllerAppName
+    environmentName: environmentName
+    resourceVersion: resourceVersion
+    sku: 'F1'
   }
 }
 
@@ -86,8 +91,8 @@ module app 'component-custom-templates/web-app.bicep' = {
   scope: resourceGroup()
   params: {
     appIdentity: appIdentity
-    appServicePlanResourceGroupName: appServicePlanResourceGroupName
-    appServicePlanName: appServicePlanName
+    appServicePlanResourceGroupName: appsServicePlan.outputs.appServicePlanResourceGroupName
+    appServicePlanName: appsServicePlan.outputs.appServicePlanName
     appSettings: appInitialSettings
     appName: controllerAppName
     environmentName: environmentName

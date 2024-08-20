@@ -26,7 +26,7 @@ namespace RobotFactory.WebApi.Handlers.Robot
             //Validate request
             var robot = await AddNewRobotToMongoDatabse();
 
-            _logger.LogInformation("Robot added to the daabase. Creating Message to construct");
+            _logger.LogInformation("Robot added to the database. Creating Message to construct");
             await AddMessageToQueue(robot.Id);
             return new OrderRobotResponse(robot.Id);
         }

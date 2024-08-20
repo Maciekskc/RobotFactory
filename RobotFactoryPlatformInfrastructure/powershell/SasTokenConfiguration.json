@@ -1,0 +1,71 @@
+{
+  "StorageAccountResourceGroup": "rg-rfshared-dev-001",
+  "StorageAccountName": "sarfdevwesteurope001",
+  "QueueNames": [
+    "initialize-robot-creation-queue",
+    "start-robot-construction-queue",
+    "robot-construction-mount-body-queue",
+    "robot-construction-mount-head-queue",
+    "robot-construction-mount-arms-queue",
+    "robot-construction-mount-legs-queue",
+    "finalize-robot-construction-queue"
+  ],
+  "ControllersSecrets": {
+    "ResourceGroupName": "rg-rfcontroller-dev-001",
+    "KvName": "kv-rfcontroller-dev-001",
+    "SecretsToSet": [
+      {
+        "SecretName": "AzureStorageQueue--InitializeRobotCreationQueueSasToken",
+        "QueueName": "initialize-robot-creation-queue"
+      },
+      {
+        "SecretName": "AzureStorageQueue--StartRobotConstructionQueueSasToken",
+        "QueueName": "start-robot-construction-queue"
+      }
+    ]
+  },
+  "WorkerOrganizersSettings": {
+    "ResourceGroupName": "rg-rfworkers-dev-001",
+    "AppName": "aca-rforganizer-dev-001",
+    "ConfigsToSet": [
+      {
+        "SecretName": "QueueServiceConfig__StartConstructionQueueSasToken",
+        "QueueName": "start-robot-construction-queue"
+      },
+      {
+        "SecretName": "QueueServiceConfig__MountBodyQueueSasToken",
+        "QueueName": "robot-construction-mount-body-queue"
+      },
+      {
+        "SecretName": "QueueServiceConfig__FinalizeConstructionQueueSasToken",
+        "QueueName": "finalize-robot-construction-queue"
+      }
+    ]
+  },
+  "WorkerAssemblersSettings": {
+    "ResourceGroupName": "rg-rfworkers-dev-001",
+    "AppName": "aca-rfassembler-dev-001",
+    "ConfigsToSet": [
+      {
+        "SecretName": "QueueServiceConfig__MountBodyQueueSasToken",
+        "QueueName": "robot-construction-mount-body-queue"
+      },
+      {
+        "SecretName": "QueueServiceConfig__MountHeadQueueSasToken",
+        "QueueName": "robot-construction-mount-head-queue"
+      },
+      {
+        "SecretName": "QueueServiceConfig__MountArmsQueueSasToken",
+        "QueueName": "robot-construction-mount-arms-queue"
+      },
+      {
+        "SecretName": "QueueServiceConfig__MountLegsQueueSasToken",
+        "QueueName": "robot-construction-mount-legs-queue"
+      },
+      {
+        "SecretName": "QueueServiceConfig__FinalizeConstructionQueueSasToken",
+        "QueueName": "finalize-robot-construction-queue"
+      }
+    ]
+  }
+}

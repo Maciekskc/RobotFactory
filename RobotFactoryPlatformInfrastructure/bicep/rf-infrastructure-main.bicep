@@ -83,6 +83,17 @@ resource sharedResourceGroup 'Microsoft.Resources/resourceGroups@2024-03-01' = {
   location: location
 }
 
+module acr 'component-custom-templates/acr.bicep' = {
+  name: '${deployment().name}-acr'
+  scope: sharedResourceGroup
+  params: {
+    appName: appName
+    environmentName: environmentName
+    location: location
+    resourceVersion: resourceVersion
+  }
+}
+
 module db 'component-custom-templates/cosmos-with-mongodb.bicep' = {
   name: '${deployment().name}-mongodatabase'
   scope: sharedResourceGroup
@@ -109,17 +120,6 @@ module storageAcount 'component-custom-templates/storage.bicep' = {
       startConstructionQueueName
     ]
     storageAccountType: storageAccountType
-  }
-}
-
-module appsServicePlan 'component-custom-templates/app-plan.bicep' = {
-  scope: sharedResourceGroup
-  name: '${deployment().name}-appsPlan'
-  params:{
-    appName: appName
-    environmentName: environmentName
-    resourceVersion: resourceVersion
-    sku: 'F1'
   }
 }
 

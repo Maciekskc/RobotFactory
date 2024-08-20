@@ -24,7 +24,7 @@ function Generate-SASToken {
     # Generate the SAS token using the connection string
     $sasToken = az storage queue generate-sas `
         --name $queueName `
-        --permissions ra `
+        --permissions apru `
         --expiry $expiry `
         --connection-string $connectionString `
         --output tsv
@@ -79,20 +79,20 @@ $data = $jsonInput | ConvertFrom-Json
 # Dictionary to store SAS tokens
 $sasTokens = @{}
 
-# Generate SAS tokens for each queue
+Write-Output "Generate SAS tokens for each queue"
 foreach ($queueName in $data.QueueNames) {
     $sasTokens[$queueName] = Generate-SASToken -storageAccountResourceGroup $data.StorageAccountResourceGroup -storageAccountName $data.StorageAccountName -queueName $queueName
 }
 
-# Set secrets in ControllerSecrets' Key Vault
+Write-Output "Set secrets in $($data.ControllersSecrets.KvName) Key Vault"
 foreach ($secret in $data.ControllersSecrets.SecretsToSet) {
     $sasToken = $sasTokens[$secret.QueueName]
     Set-KVSecret -kvName $data.ControllersSecrets.KvName -secretName $secret.SecretName -secretValue $sasToken
 }
 
-# Set environment variables for WorkerOrganizersSettings
+Write-Output "Set environment variables for $($data.WorkerOrganizersSettings.AppName)"
 Set-AppSettings -resourceGroupName $data.WorkerOrganizersSettings.ResourceGroupName -appName $data.WorkerOrganizersSettings.AppName -tokens $sasTokens -configNames $data.WorkerOrganizersSettings.ConfigsToSet
 
-# Set environment variables for WorkerAssemblersSettings
+Write-Output "Set environment variables for $($data.WorkerAssemblersSettings.AppName)"
 Set-AppSettings -resourceGroupName $data.WorkerAssemblersSettings.ResourceGroupName -appName $data.WorkerAssemblersSettings.AppName -tokens $sasTokens -configNames $data.WorkerAssemblersSettings.ConfigsToSet
 

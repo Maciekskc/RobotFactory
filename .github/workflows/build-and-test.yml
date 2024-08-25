@@ -21,10 +21,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore .\RobotFactoryDistriutedSystem\
 
       - name: Build
-        run: dotnet build
+        run: dotnet build .\RobotFactoryDistriutedSystem\
 
       - name: Test with the dotnet CLI
-        run: dotnet test
+        run: dotnet test .\RobotFactoryDistriutedSystem\

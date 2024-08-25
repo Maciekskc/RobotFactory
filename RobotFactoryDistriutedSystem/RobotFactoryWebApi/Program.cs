@@ -1,16 +1,28 @@
 using Azure.Identity;
 using MediatR;
+using MongoDB.Driver;
 using RobotFactory.DataAccessLayer.QueueServices;
 using RobotFactory.DataAccessLayer.QueueServices.Interfaces;
 using RobotFactory.DataAccessLayer.Repositories;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
+using RobotFactory.DataLayer.Models;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.OrderRobots;
 using RobotFactorySharedComponents.Dtos.ApiRequests.HealthCheck;
 using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.SupplyComponents;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+// Register IMongoCollection<Robot>
+builder.Services.AddSingleton(() =>
+{
+    var mongoClient = new MongoClient(builder.Configuration["MongoDatabase:ConnectionString"]);
+
+    var mongoDatabase = mongoClient.GetDatabase(builder.Configuration["MongoDatabase:DatabaseName"]);
+
+    return mongoDatabase.GetCollection<Robot>(builder.Configuration["MongoDatabase:RobotCollectionName"]);
+});
+
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();
 builder.Services.AddScoped<IRobotComponentsRepository, RobotComponentsRepository>();
 builder.Services.AddScoped<IInitializeRobotCreationQueueService, InitializeRobotCreationQueueService>();

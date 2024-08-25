@@ -1,11 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic.FileIO;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using RobotFactory.DataAccessLayer.Repositories.Interfaces;
-using RobotFactory.DataLayer.Enums;
 using RobotFactory.DataLayer.Models;
 using System.Linq.Expressions;
-using static MongoDB.Driver.WriteConcern;
 
 namespace RobotFactory.DataAccessLayer.Repositories
 {
@@ -13,13 +9,9 @@ namespace RobotFactory.DataAccessLayer.Repositories
     {
         private readonly IMongoCollection<Robot> _robotsCollection;
 
-        public RobotRepository(IConfiguration configuration)
+        public RobotRepository(IMongoCollection<Robot> robotsCollection)
         {
-            var mongoClient = new MongoClient(configuration["MongoDatabase:ConnectionString"]);
-
-            var mongoDatabase = mongoClient.GetDatabase(configuration["MongoDatabase:DatabaseName"]);
-
-            _robotsCollection = mongoDatabase.GetCollection<Robot>(configuration["MongoDatabase:RobotCollectionName"]);
+            _robotsCollection = robotsCollection;
         }
 
         public Task CreateRobotAsync(Robot newRobot)
@@ -27,7 +19,7 @@ namespace RobotFactory.DataAccessLayer.Repositories
             return _robotsCollection.InsertOneAsync(newRobot);
         }
 
-        public async Task<UpdateResult> AddRobotComponentAsync(string robotId, Type robotComponentType, RobotComponent newRobotComponent)
+        public Task<UpdateResult> AddRobotComponentAsync(string robotId, Type robotComponentType, RobotComponent newRobotComponent)
         {
             var filter = Builders<Robot>.Filter.Eq(robot => robot.Id, robotId);
 
@@ -39,7 +31,8 @@ namespace RobotFactory.DataAccessLayer.Repositories
                 nameof(Leg) => Builders<Robot>.Update.AddToSet(robot => robot.Legs, newRobotComponent),
                 _ => throw new ArgumentOutOfRangeException("Not known type of robot component")
             };
-            return await _robotsCollection.UpdateOneAsync(filter,update);
+
+            return _robotsCollection.UpdateOneAsync(filter, update,null,default);
         }
 
         public async Task<UpdateResult> UpdateRobotProperty(string robotId, Expression<Func<Robot, object>> expresion, object value)

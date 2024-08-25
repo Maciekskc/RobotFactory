@@ -12,15 +12,24 @@ using RobotFactory.SharedComponents.Dtos.ApiRequests.Robot.SupplyComponents;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-// Register IMongoCollection<Robot>
-builder.Services.AddSingleton(() =>
+builder.Services.AddSingleton<IMongoClient>(sp =>
 {
-    var mongoClient = new MongoClient(builder.Configuration["MongoDatabase:ConnectionString"]);
+    var connectionString = builder.Configuration["MongoDatabase:ConnectionString"];
+    return new MongoClient(connectionString);
+});
 
-    var mongoDatabase = mongoClient.GetDatabase(builder.Configuration["MongoDatabase:DatabaseName"]);
+builder.Services.AddScoped(sp =>
+{
+    var client = sp.GetRequiredService<IMongoClient>();
+    var databaseName = builder.Configuration["MongoDatabase:DatabaseName"];
+    return client.GetDatabase(databaseName);
+});
 
-    return mongoDatabase.GetCollection<Robot>(builder.Configuration["MongoDatabase:RobotCollectionName"]);
+builder.Services.AddScoped(sp =>
+{
+    var database = sp.GetRequiredService<IMongoDatabase>();
+    var collectionName = builder.Configuration["MongoDatabase:RobotCollectionName"];
+    return database.GetCollection<Robot>(collectionName);
 });
 
 builder.Services.AddScoped<IRobotRepository, RobotRepository>();

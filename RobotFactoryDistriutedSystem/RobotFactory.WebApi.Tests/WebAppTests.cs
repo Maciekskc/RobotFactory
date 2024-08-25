@@ -1,6 +1,4 @@
-using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace RobotFactory.WebApi.Tests
 {
@@ -12,7 +10,6 @@ namespace RobotFactory.WebApi.Tests
         {
             _factory = factory;
         }
-
 
         [Fact]
         public async Task Api_IsResponding()

@@ -31,7 +31,7 @@ namespace RobotFactory.DataLayer.Converters
                     RobotComponentType.Body => (Body)JsonSerializer.Deserialize(jsonRobotComponent, typeof(Body)),
                     RobotComponentType.Arm => (Arm)JsonSerializer.Deserialize(jsonRobotComponent, typeof(Arm)),
                     RobotComponentType.Leg => (Leg)JsonSerializer.Deserialize(jsonRobotComponent, typeof(Leg)),
-                    _ => (RobotComponent)JsonSerializer.Deserialize(jsonRobotComponent, typeof(RobotComponent))
+                    _ => throw new JsonException("Cannot deserialize object due to unknown component type")
                 };
             }
         }

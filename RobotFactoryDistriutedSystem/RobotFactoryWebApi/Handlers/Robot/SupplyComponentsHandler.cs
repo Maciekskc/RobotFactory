@@ -8,12 +8,12 @@ namespace RobotFactory.WebApi.Handlers.Robot
 {
     public class SupplyComponentsHandler : IRequestHandler<SupplyComponentsRequest, SupplyComponentsResponse>
     {
-        private readonly ILogger<OrderRobotHandler> _logger;
+        private readonly ILogger<SupplyComponentsHandler> _logger;
         private readonly IRobotComponentsRepository _robotComponentsRepository;
         private readonly IStartRobotConstructionService _startRobotConstructionService;
 
 
-        public SupplyComponentsHandler(ILogger<OrderRobotHandler> logger, IRobotComponentsRepository robotComponentsRepository, IStartRobotConstructionService startRobotConstructionService)
+        public SupplyComponentsHandler(ILogger<SupplyComponentsHandler> logger, IRobotComponentsRepository robotComponentsRepository, IStartRobotConstructionService startRobotConstructionService)
         {
             _logger = logger;
             _robotComponentsRepository = robotComponentsRepository;
